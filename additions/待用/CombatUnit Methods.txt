@@ -1,0 +1,230 @@
+以下是CombatUnit 的函数列表.
+
+---返回unit是否存活
+CombatUnit:IsAlive()
+---返回unit的对手unit
+CombatUnit:GetMainOpponent()
+
+---为unit添加能力
+---@param name string
+---@param apply_event string
+---@param skip_animations boolean
+---@param is_temp boolean
+CombatUnit:ApplyPerk(name, apply_event, skip_animations, is_temp)
+
+---从unit身上去掉指定名称的神器
+---@param name string
+CombatUnit:RemoveRelic(name)
+
+---为unit添加神器
+---@param name string
+---@param apply_event string
+---@param skip_animations boolean
+CombatUnit:ApplyRelic(name, apply_event, skip_animations)
+
+---返回unit身上所有能力的列表
+CombatUnit:GetPerks()
+
+---返回unit身上某项能力的等级
+---@param name string
+CombatUnit:GetPerkLevel(name)
+
+---返回unit是否持有某项能力
+---@param name string
+CombatUnit:HasPerk(name)
+
+---返回unit身上所有神器的列表
+---@param name string
+CombatUnit:GetRelics()
+
+---返回unit身上某项神器的等级
+CombatUnit:GetRelicLevel(name)
+
+---返回unit是否持有某项神器
+---@param name string
+CombatUnit:HasRelic(name)
+
+---返回unit某项attribute的无限制值（例如unit闪避值达到200%时，此函数会返回2）
+---@param key string
+CombatUnit:GetRawAttribute(key)
+
+---返回unit某项attribute限制后的值（例如unit闪避值达到200%时，此函数会返回1，因为闪避值受限在0到1之间）
+---@param key string
+CombatUnit:GetBoundedAttribute(key)
+
+---设置unit某项attribute为某值
+---@param key string
+---@param value number
+CombatUnit:SetAttribute(key, value)
+
+---增减unit某项attribute的值
+---@param key string
+---@param value number
+---@param use_animation boolean
+---@param skip_buffer boolean
+CombatUnit:ModifyAttribute(key, value, use_animation, skip_buffer)
+
+---返回unit的最大生命值
+CombatUnit:GetMaximumHealth()
+
+---返回unit的当前生命值
+CombatUnit:GetCurrentHealth()
+
+---设置unit的当前生命值
+---@param value number
+CombatUnit:SetCurrentHealth(value)
+
+---增减unit的当前生命值
+---@param value number
+CombatUnit:ModifyCurrentHealth(value)
+
+---返回unit的最大能量值
+---@param value number
+CombatUnit:GetMaximumEnergy()
+
+---返回unit的当前能量值
+CombatUnit:GetCurrentEnergy()
+
+---设置unit的当前能量值
+CombatUnit:SetCurrentEnergy(value)
+
+---增减unit的当前能量值
+---@param value number
+CombatUnit:ModifyCurrentEnergy(value)
+
+---返回unit的能量值是否已满
+---@param value number
+CombatUnit:IsEnergyFull()
+
+---返回unit是否有某behavior
+---@param behavior_name string
+CombatUnit:HasBehavior(behavior_name)
+
+---返回unit的攻击速度
+CombatUnit:GetAttackSpeed()
+
+---返回unit的生命回复值
+CombatUnit:GetHealthRegen()
+
+---返回unit的暴击率
+CombatUnit:GetCritChance()
+
+---返回unit的闪避率
+CombatUnit:GetDodgeChance()
+
+---返回unit的大招伤害
+CombatUnit:GetUltimateDamage()
+
+---回复unit的当前生命值
+---@param amount number
+---@param digit_type table
+CombatUnit:Heal(amount, digit_type)
+
+---对unit造成伤害
+---@param amount number
+---@param caster CombatUnit
+---@param display_args table
+CombatUnit:Damage(amount, caster, display_args)
+
+---震动unit头像
+---@param direction number (0 or 1)
+---@param is_big_shake boolean
+CombatUnit:Shake(direction, is_big_shake)
+
+---杀死unit
+CombatUnit:Kill()
+
+---更新unit的弹夹UI
+CombatUnit:UpdateEmojiMagazineUi()
+
+---返回unit是否是敌人
+CombatUnit:IsMob()
+
+---返回unit是否是玩家
+CombatUnit:IsHero()
+
+---返回unit是否是boss敌人
+CombatUnit:IsBoss()
+
+---返回unit是否是关底boss敌人
+CombatUnit:IsFinalBoss()
+
+---当unit被创建时调用注册的回调函数
+---@param callback fun(level)
+CombatUnit:RegisterOnUnitCreateCallback(perk_or_relic_name, callback)
+
+---当战斗开始前时调用注册的回调函数
+---@param callback fun(level)
+CombatUnit:RegisterOnBeforeCombatStartCallback(perk_or_relic_name, callback)
+
+---当战斗开始时调用注册的回调函数
+---@param callback fun(level, target)
+CombatUnit:RegisterOnCombatStartCallback(perk_or_relic_name, callback)
+
+---当战斗结束时调用注册的回调函数
+---@param callback fun(level)
+CombatUnit:RegisterOnCombatEndCallback(perk_or_relic_name, callback)
+
+---战斗过程中每帧调用注册的回调函数
+---@param callback fun(level, time)
+CombatUnit:RegisterOnCombatPeriodicCallback(perk_or_relic_name, callback)
+
+---当unit受到伤害时调用注册的回调函数
+---@param callback fun(level, damage_amount, attacker, defender)
+CombatUnit:RegisterOnDamageTakenCallback(perk_or_relic_name, callback)
+
+---当unit造成伤害时调用注册的回调函数
+---@param callback fun(level, damage_amount, attacker, defender)
+CombatUnit:RegisterOnDamageDealCallback(perk_or_relic_name, callback)
+
+---当unit生命值回复时调用注册的回调函数
+---@param callback fun(level, heal_amount, healer)
+CombatUnit:RegisterOnHealCallback(perk_or_relic_name, callback)
+
+---当unit消费金币时调用注册的回调函数
+---@param callback fun(level, consume_amount)
+CombatUnit:RegisterOnGoldConsumeCallback(perk_or_relic_name, callback)
+
+---当unit金币数量变化时调用注册的回调函数
+---@param callback fun(level, current_gold)
+CombatUnit:RegisterOnPlayerGoldChangeCallback(perk_or_relic_name, callback)
+
+---当unit购买能力时调用注册的回调函数
+---@param callback fun(level, perk_id)
+CombatUnit:RegisterOnBuyPerkCallback(perk_or_relic_name, callback)
+
+---当unit购买神器时调用注册的回调函数
+---@param callback fun(level, relic_id)
+CombatUnit:RegisterOnBuyRelicCallback(perk_or_relic_name, callback)
+
+---当unit自身被晕眩时调用注册的回调函数
+---@param callback fun(level, caster, target)
+CombatUnit:RegisterOnStunnedCallback(perk_or_relic_name, callback)
+
+---当unit使敌人晕眩时调用注册的回调函数
+---@param callback fun(level, caster, target)
+CombatUnit:RegisterOnEnemyStunnedCallback(perk_or_relic_name, callback)
+
+---当unit自身晕眩结束时调用注册的回调函数
+---@param callback fun(level, caster, target)
+CombatUnit:RegisterOnStunnedEndCallback(perk_or_relic_name, callback)
+
+---当unit的敌人晕眩结束时调用注册的回调函数
+---@param callback fun(level, caster, target)
+CombatUnit:RegisterOnEnemyStunnedEndCallback(perk_or_relic_name, callback)
+
+---当unit自身被便形眩时调用注册的回调函数
+---@param callback fun(level, caster, target)
+CombatUnit:RegisterOnPoolymorphedCallback(perk_or_relic_name, callback)
+
+---当unit的敌人被便形眩时调用注册的回调函数
+---@param callback fun(level, caster, target)
+CombatUnit:RegisterOnEnemyPoolymorphedCallback(perk_or_relic_name, callback)
+
+---当unit自身attribute值被改变时调用注册的回调函数
+---@param callback fun(level, attribute, old_value, new_value)
+CombatUnit:RegisterOnSetAttributeCallback(perk_or_relic_name, callback)
+
+---当unit的敌人发射子弹时调用注册的回调函数
+---@param callback fun(level, attack_data, caster)
+CombatUnit:RegisterOnOpponentMissileLaunchCallback(perk_or_relic_name, callback)

@@ -1,0 +1,221 @@
+{
+    "units": {
+
+
+
+        
+        "COMBAT Missile Custom Star": {
+            "baseUnit": "_COMBAT Missile"
+        },
+        "COMBAT Unit Mod Summon": {
+            "baseUnit": "_COMBAT Missile"
+        },
+        "COMBAT Unit Mod Summoner": {
+            "baseUnit": "_COMBAT Missile"
+        },
+
+
+
+
+       "COMBAT Missile Tnts":
+       {
+           "baseUnit": "_COMBAT Missile"
+       },
+
+       "COMBAT Missile Long Xi":
+       {
+           "baseUnit": "_COMBAT Missile"
+       },
+
+       "COMBAT Missile Ji":
+       {
+           "baseUnit": "_COMBAT Missile"
+       },
+
+       "COMBAT Missile Zhi_Zhu":
+       {
+           "baseUnit": "_COMBAT Missile"
+       },
+
+       "COMBAT Missile Jiang_Zhuren": 
+       {
+           "baseUnit": "_COMBAT Missile"
+       },
+        
+       "COMBAT Missile Zuan_Shijian": 
+       {
+           "baseUnit": "_COMBAT Missile"
+       },
+
+       "COMBAT Missile Zhu_Wang": 
+       {
+           "baseUnit": "_COMBAT Missile"
+       },
+
+       "COMBAT Missile Mian_Bao": 
+       {
+           "baseUnit": "_COMBAT Missile"
+       },
+
+       "COMBAT Missile Niurou": 
+       {
+           "baseUnit": "_COMBAT Missile"
+       },
+
+       "COMBAT Missile Juanxincai": 
+       {
+           "baseUnit": "_COMBAT Missile"
+       },
+
+       "COMBAT Missile LuoBo": 
+       {
+           "baseUnit": "_COMBAT Missile"
+       },
+
+       "COMBAT Missile TuDou": 
+       {
+           "baseUnit": "_COMBAT Missile"
+       },
+
+       "COMBAT Missile FuRou": 
+       {
+           "baseUnit": "_COMBAT Missile"
+       },
+
+       "COMBAT Missile TieDing": 
+       {
+           "baseUnit": "_COMBAT Missile"
+       },
+
+       "COMBAT Missile Zhu": 
+       {
+           "baseUnit": "_COMBAT Missile"
+       },
+
+       "COMBAT Missile End_Eye": 
+       {
+           "baseUnit": "_COMBAT Missile"
+       },
+
+       "COMBAT Missile Hai_Gui": 
+       {
+           "baseUnit": "_COMBAT Missile"
+       },
+
+       "COMBAT Missile Hai_Tun": 
+       {
+           "baseUnit": "_COMBAT Missile"
+       },
+
+       "COMBAT Missile Diao_Ling": 
+       {
+           "baseUnit": "_COMBAT Missile"
+       },
+
+       "COMBAT Missile ChangPian": 
+       {
+           "baseUnit": "_COMBAT Missile"
+       },
+
+       "COMBAT Missile ShaZi": 
+       {
+           "baseUnit": "_COMBAT Missile"
+       },
+
+       "COMBAT Missile KY_ShaZi": 
+       {
+           "baseUnit": "_COMBAT Missile"
+       },
+
+       "COMBAT Missile Missile_jinding": 
+       {
+           "baseUnit": "_COMBAT Missile"
+       },
+
+       "COMBAT Missile Gong_Jian": 
+       {
+           "baseUnit": "_COMBAT Missile"
+       },
+
+       "COMBAT Missile Jian": 
+       {
+           "baseUnit": "_COMBAT Missile"
+       },
+
+       "COMBAT Missile Nu": 
+       {
+           "baseUnit": "_COMBAT Missile"
+       },
+
+        "COMBAT Unit Steve Character":
+        {
+            "baseUnit": "_COMBAT Unit"
+        },
+
+        "COMBAT Unit Boss Zombie":
+        {
+            "baseUnit": "_COMBAT Unit"
+        },
+
+        "COMBAT Unit Boss Kulipa":
+        {
+            "baseUnit": "_COMBAT Unit"
+        },
+
+        "COMBAT Unit Boss Zhuling":
+        {
+            "baseUnit": "_COMBAT Unit"
+        },
+
+        "COMBAT Unit Boss Lieyanren":
+        {
+            "baseUnit": "_COMBAT Unit"
+        },
+
+        "COMBAT Unit Boss Moyingren":
+        {
+            "baseUnit": "_COMBAT Unit"
+        },
+
+        "COMBAT Unit Boss Moyinglong":
+        {
+            "baseUnit": "_COMBAT Unit"
+        },
+
+        "COMBAT Ultimate Lie": 
+       { 
+            "baseUnit": "_COMBAT Ultimate"
+        },
+
+        "COMBAT Ultimate Ku_Li": 
+       { 
+            "baseUnit": "_COMBAT Ultimate"
+        },
+
+        "COMBAT Ultimate Jin_Jian": 
+       { 
+            "baseUnit": "_COMBAT Ultimate"
+        },
+
+        "COMBAT Ultimate Lie_Yan": 
+       { 
+            "baseUnit": "_COMBAT Ultimate"
+        },
+
+        "COMBAT Ultimate Zhen_Zhu": 
+       { 
+            "baseUnit": "_COMBAT Ultimate"
+        },
+
+        "COMBAT Ultimate Long_xi": 
+       { 
+            "baseUnit": "_COMBAT Ultimate"
+        },
+
+        "COMBAT Ultimate Fu_Rou": 
+       { 
+            "baseUnit": "_COMBAT Ultimate"
+        }
+       
+    }
+}

@@ -1,0 +1,406 @@
+属性
+---@class AttributeDataConfigDisplayRequirements
+---@field always_hide boolean 在UI中隐藏该属性
+---@field always_show boolean 在UI中始终显示该属性
+---@field is_hero boolean 仅为玩家显示该属性
+---@field default_value number 属性的默认值，默认情况下为0。颜色将根据此值变化
+---@field perk string 仅当单位拥有该能力时显示该属性
+---@field relic string 仅当单位拥有该神器时显示该属性
+---@field missile string 仅当单位拥有该子弹时显示该属性
+---@field max number 属性会以 “当前值/最大值” 的格式显示
+
+---@class AttributeDataConfig
+---@field id string
+---@field display_name string
+---@field description string
+---@field flavor_text string
+---@field icon string
+---@field display_type fun(value:number):string 显示属性值的函数，如百分比、整数或带逗号的较大数
+---@field min_value number 用于CombatUnit:GetBoundedAttribute的属性最小值
+---@field max_value number 用于CombatUnit:GetBoundedAttribute的属性最大值
+---@field is_neutral boolean 属性在UI中的颜色将不会更改
+---@field is_negative boolean 属性在UI中的颜色将反转：绿色->红色，红色->绿色
+---@field display_requirements AttributeDataConfigDisplayRequirements
+---@field granularity number 与获得该属性时飞向属性面板的图标数量相关，通常为1或0.01
+
+---@param config AttributeDataConfig
+Api:RegisterAttribute(config)
+子弹与大招
+---@class MissileData
+---@field id string
+---@field display_name string
+---@field tip string 子弹的描述
+---@field flavor_text string 描述中的flavor text
+---@field icon string
+---@field missile string SimpleUnit
+---@field impact string SimpleUnit
+---@field damage number 如果是固定值则可以直接在这里设置子弹的伤害
+---@field sounds table<string> 将从此列表中随机播放声音
+---@field spin_speed number 默认值为0，设置子弹旋转速度，单位为每秒的角度
+---@field target_self boolean 如果为true，则子弹将以施法者为目标
+---@field undodgeable boolean 如果为true，则子弹不可被闪避
+---@field flight_time number 子弹为0.75，终极技为1。仅影响子弹视觉的移除时间，不影响实际效果的应用时间
+---@field static boolean|nil 仅影响大招。为true则子弹不旋转，朝向将取决于施法者是玩家还是敌人
+
+---@param missile_id string
+---@param config MissileData
+---@param initializer fun(unit:CombatUnit) 子弹应用或加载时的初始化函数
+Api:RegisterMissile(missile_id, config, initializer)
+
+---@class DefaultMissileAttackData
+---@field is_critical boolean
+---@field is_dodged boolean
+---@field direction integer  -- [视觉] 发射方向：0表示左侧，1表示右侧。可以设置direct_move = true让它直线移动
+---@field missile_id string
+---@field damage number|nil
+---@field direct_move boolean|nil  -- [视觉] 直线朝目标移动
+
+---设置此伤害将覆盖传递给Api:RegisterMissile的伤害
+---当你希望编写函数来计算伤害时使用此项
+---当前传入的attack_data仅有DefaultMissileAttackData的前四个字段的值
+---@param missile_id string
+---@param damage_setter fun(attack_data:DefaultMissileAttackData, caster:CombatUnit):number
+Api:SetMissileDamage(missile_id, damage_setter)
+
+---设置子弹命中目标后的效果
+---@param missile_id string
+---@param impact_callback fun(attack_data:DefaultMissileAttackData, caster:CombatUnit, target:CombatUnit)
+Api:SetMissileImpact(missile_id, impact_callback)
+
+---设置此声音将覆盖传递给Api:RegisterMissile的声音
+---你也可以在Api:RegisterMissile的配置中直接设置声音列表
+---@param missile_id string
+---@param sounds table<string>
+Api:SetMissileHitSound(missile_id, sounds)
+
+---类似Api:RegisterMissile，但这个是注册大招的子弹
+---配置仅接受id, icon, missile, spin_speed, flight_time, static字段
+---@param ultimate_id string
+---@param config MissileData
+Api:RegisterUltimate(ultimate_id, config)
+
+---设置大招发射时的声音
+---@param character_id string
+---@param sound string
+Api:SetUltimateLaunchSound(character_id, sound)
+
+---设置大招命中目标时的声音
+---@param character_id string
+---@param sound string
+Api:SetUltimateHitSound(character_id, sound)
+能力和神器
+---提示框将显示属性、子弹或关键字的描述
+---@class ExtraTooltip
+---@field name string
+---@field type string 可设置为keyword, attribute, missile
+
+---@class BehaviorData
+---@field description string 如果未设置，则buff上会显示能力的描述
+---@field is_positive boolean|nil 如果为true，则增益标签为绿色，否则为红色
+---@field buff_bar_icon string
+---@field duration number|nil 每层buff的持续时间, nil表示无限长
+---@field modify_attributes table<string, number> buff修改的属性
+---@field interval number|nil 有interval的buff仅使用一个实例（因此不支持duration）interval时间到时移除全部层数
+---@field interval_effect table<string, boolean>|nil 与interval一起使用，目前仅支持 stun|disarm|absorb_damage
+
+---@class PerkData
+---@field id string
+---@field display_name string
+---@field description string
+---@field flavor_text string 描述中的flavor text
+---@field icon string
+---@field perk_type string 能力或子弹，仅影响能力卡片下方的显示文本
+---@field rarity string  common | rare | epic | legendary | divine
+---@field is_player_only boolean|nil 此能力不会出现在敌人身上
+---@field attacks table<string, number>|nil 获得的子弹id列表
+---@field extra_tooltips table<ExtraTooltip>|nil 提示框信息
+---@field scaling_values table|nil 按等级缩放的值，可以自定义值
+---@field non_scaling_values table|nil 不按等级缩放的值，可以自定义值
+---@field modify_attributes table|nil 修改拥有者的属性
+---@field behavior BehaviorData 一些能力可以对施法者或目标施加behavior，你也可以创建仅用于behavior的能力，这样它可以在多个能力中使用
+---@field description_replacement_values table 用神器数据中地址找到的值替换描述中的VAR1, VAR2,...
+---@field max_level number|nil 如果已经满级，则该能力不会出现在能力选择或者商店中。每拿一张能力卡算加一级
+---@field triggering_event string|nil OnWin: 胜利时会调用scaling_values来修改属性。OnHealthThreshold: 会被“紧急”触发。Rush: 会被“冲锋”触发
+
+---@param perk_id string
+---@param config PerkData
+---@param initializer fun(unit:CombatUnit) 添加在能力获得或加载时注册的回调
+Api:RegisterPerk(perk_id, config, initializer)
+
+---将config中的能力字段覆盖默认值
+---@param perk_id string
+---@param override_config PerkData
+Api:ModifyPerk(perk_id, override_config)
+
+---@class RelicData
+---@field id string
+---@field display_name string
+---@field description string
+---@field icon string
+---@field text_icon string|nil 如果神器有text_icon且稀有度为rare, epic或legendary，则可在“以物换物”(trade_offer)中被交易
+---@field rarity string permanent | rare | epic | legendary | combo | divine
+---@field attacks table<string, number>|nil 该能力将应用到的子弹id列表
+---@field extra_tooltips table<ExtraTooltip>|nil 提示框信息
+---@field scaling_values table|nil 按等级缩放的值，可以自定义值
+---@field non_scaling_values table|nil 不按等级缩放的值，可以自定义值
+---@field modify_attributes table|nil 修改拥有者的属性
+---@field behavior BehaviorData 一些神器可以对施法者或目标施加behavior，你也可以创建仅用于behavior的能力，这样它可以在多个能力中使用
+---@field description_replacement_values table 用神器数据中地址找到的值替换描述中的VAR1, VAR2,...
+---@field max_level number|nil 如果拥有者的神器等级已达到最大，则该神器不会出现在商店或boss掉落中。每拿一张神器算加一级
+---@field sl_break boolean|nil 如果为true，则在读档时神器将被销毁
+---@field minimum_ascension number|nil 如果战斗低于所需阶级，则神器将在进入游戏时被移除
+---@field dependent_perk_chains table<table>|nil 此神器所依赖的能力链列表，能力链是table的引用
+---@field triggering_event string|nil 只支持OnWin: 将应用scaling_values来修改属性
+
+---注册新神器
+---@param name string
+---@param config RelicData
+---@param initializer fun(combat_unit:CombatUnit) 添加在神器应用或加载时注册的回调
+---@param add_to_pool boolean 是否将神器添加到神器池，以便在商店中出现或从boss掉落
+Api:RegisterRelic(name, config, initializer, add_to_pool)
+
+---@param character_id string
+---@param relic_combos table<string, table<string, number>> 通过Api:RegisterRelic注册的神器组合表
+Api:RegisterRelicCombos(character_id, relic_combos)
+---relic_combos示例
+local relic_combos = {
+    angry_troll = {
+        formula = {
+            health_regen_percentage = 1,
+            fire_cracker = 1,
+        },
+    },
+    bottled_danger = {
+        formula = {
+            glass_cannon = 1,
+            nuke = 1,
+        },
+    },
+}
+
+---在获得新能力或神器时触发自定义事件
+---使用示例请参考[模组样例]中的Advanced-Mod1
+---@param name string
+---@param callback fun(unit_data:CombatUnit, perk_or_relic_data:PerkData|RelicData, is_perk:boolean)
+Api:RunPerkRelicOnApplyEvent(name, callback)
+角色
+---@class CharacterConfig
+---@field id string 角色的唯一id，以避免与内建角色或其他mod冲突
+---@field display_name string 如果未设置，则id将用作显示名称
+---@field short_description string 在角色选择中显示的简要描述
+---@field icon string 500x500像素，将在战斗中使用
+---@field icon_low_resolution 152x152像素，在角色选择中显示为小图标
+---@field icon_high_resolution string 1024x1024像素，将用于角色选择的背景
+---@field icon_high_resolution_size table<string, number> icon_high_resolution的尺寸，一般是{width = 700, height = 700} 
+---@field unit string 单位
+---@field attributes table<string, number> 修改角色的初始属性
+---@field relics table<string> 通过Api:RegisterRelic注册的神器id列表
+---@field attack_ids table<string> 通过Api:RegisterMissile注册的子弹id列表
+---@field perk_chains table<table<string>> 能力链列表，可在RelicData中的dependent_perk_chains中引用
+---@field blocked_perks table<string> 将不会出现在能力池中的能力id列表
+---@field blocked_relics table<string> 将不会出现在神器池中的神器id列表
+
+---@param new_character_id string 此id将用作游戏中的character_id
+---@param character_id string 基础角色id，配置中的所有缺失字段都将从基础角色复制
+---@param config CharacterConfig 配置中的id将被new_character_id覆盖
+Api:CreateCharacter(new_character_id, character_id, config)
+
+---复制基础角色并使用Api:CreateCharacter创建新角色
+---@param base_character_id string 配置中的所有缺失字段都将从基础角色复制
+---@param config CharacterConfig 配置中的id将用作new_character_id
+Api:CopyCharacter(base_character_id, config)
+
+---设置角色的初始弹药，可在角色配置中直接设置 attack_ids ，而不用调用这个Api
+---@param character_id string
+---@param magazine table<string> 通过Api:RegisterMissile注册的子弹id表
+Api:SetCharacterStartMagazine(character_id, magazine)
+事件
+---@class ChoiceOptionData
+---@field flavor string 选项的描述
+---@field description string 如果发现，将预览该选项的结果
+---@field sound string|nil 选择该选项时播放的声音
+---@field modify_attributes table<string, number> 选择该选项时修改的属性
+---@field aftermath_narrative string 选择该选项后显示的内容
+---@field aftermath_description string 选择该选项后在结果栏中显示的内容
+---@field gain_relics table<string, number> 选择该选项时获得的神器
+---@field lose_relics table<string, number>> 选择该选项时失去的神器
+---@field values table<string, number> 当前仅支持获取或失去金币
+---@field description_replacement_values table 使用选项数据中的地址替换描述和aftermath_description中的VAR1, VAR2, ...
+---@field requirement table|nil 如果未满足要求，则锁定该选项
+
+--- 支持的requirement类型
+options = {
+    ...
+    {
+        ...
+        -- 限制需要有该神器，只能限制一个
+        requirement = {
+            relic = "trolley_switch",
+        },
+    },
+    {
+        ...
+        -- 限制需要有该能力，只能限制一个
+        requirement = {
+            perk = "gain_attack",
+        },
+    },
+    {
+        ...
+        -- 限制需要有该稀有度的神器，只能限制一个稀有度
+        requirement = {
+            relic_rarity = "epic",
+        },
+    },
+    {
+        ...
+        -- 限制需要有该属性，可以限制多个，多个必须同时满足才可解锁
+        requirement = {
+            attributes = {
+                attack = 30,
+            },
+        },
+    },
+    {
+        ...
+        -- 限制需要选择过这些事件的这些选项才可以解锁
+        requirement = {
+            choice_selected = {
+                ["my_choice_id"] = { 1 },
+            },
+        },
+    },
+}
+
+---@class ChoiceData
+---@field id string
+---@field display_name string 事件的标题
+---@field image string
+---@field description string 事件的内容
+---@field options ChoiceOptionData
+Api:RegisterChoice(choice)
+
+---设置该角色的事件池，可以在Choices zh_CN页面查看公共事件的名称
+---@param character_id string
+---@param list table<string> 通过Api:RegisterChoice注册的事件或公共事件中的id列表
+Api:SetChoicePool(character_id, list)
+
+---自定义某些事件只会在某些波次之间触发
+---[min_wave, max_wave]是波次的范围，可以为nil，来表示没有上限或者下限
+---@param choice_id string
+---@param min_wave number|nil
+---@param max_wave number|nil
+Api:RegisterWaveRequiredChoices(choice_id, min_wave, max_wave)
+
+---自定义某些波次只会出现这个事件
+---[min_wave, max_wave]是波次的范围，不能为nil，如果两个相等则只会在这一波次出现，否则范围波次内都只会出现这个事件
+---如果在该波次发现了多个满足条件的事件，则会从这些事件中随机选择一个
+---@param choice_id string
+---@param min_wave number
+---@param max_wave number
+---@param limit_characters table<string>|nil 角色id的列表，只有这些角色会触发这个事件，如果为空则所有角色都会触发（不建议这么做，因为会影响其他mod）
+Api:RegisterWaveSpecialChoices(choice_id, min_wave, max_wave, limit_characters)
+Boss和战斗
+---@class BossData
+---@field id string
+---@field display_name string
+---@field string 单位
+---@field icon string
+---@field icon_high_resolution string
+---@field cosmetic_data table 通过ultimate_id改变大招的视觉效果，终极技必须通过Api:RegisterUltimate注册或使用已有的ultimate_id
+---@field attributes table<string, number> 设置属性值
+---@field perks table<string, number> Boss的能力id及等级
+---@field relics table<string> Boss拥有的神器id
+---@field rewards table<string, table<string>>|nil 仅用于reconcile_relics={"relic_id", ...}，如果设置将触发和解事件
+---@field lines table<string, table<string|table<string>>> Boss的垃圾话，请参考Advanced-Mod2示例。文本设置随机发送或一次性发送多条
+Api:RegisterBoss(config)
+
+---设置该角色的Boss池，可在Bosses zh_CN页面查看公共Boss的名称
+---@param character_id string 此mod角色的id
+---@param list table<string> 通过Api:RegisterBoss注册的Boss或公共池中的id列表
+Api:SetCampaignBossPool(character_id, list)
+
+---@class CampaignEnemySettings
+---@field health_base number
+---@field health_growth number 受mini_boss_power_up、boss_power_up和shop_growth影响
+---@field damage_base number
+---@field damage_growth number 受mini_boss_power_up、boss_power_up和shop_growth影响
+---@field rock_base number
+---@field rock_growth number 受mini_boss_power_up、boss_power_up和shop_growth影响
+---@field dodge_base number
+---@field dodge_growth number 受mini_boss_power_up、boss_power_up和shop_growth影响
+---@field mini_boss_power_up number 每5波小Boss导致的难度增长
+---@field boss_power_up number 每10波Boss导致的难度增长
+---@field shop_growth number 每5波商店导致的难度增长
+
+---修改战斗的难度增长，请参考Basic-ModDifficulty
+Api:SetCampaignEnemySettings(character_id, settings)
+
+---战斗中的金币可以为负，默认为false
+---在获得神器或能力时可以触发此功能
+Api:AllowNegativeGold()
+---示例
+Api:RegisterRelic(
+    -- 神器id和数据
+    "my_allow_debt",
+    {
+        id = "my_allow_debt",
+        display_name = "债务",
+        description = "允许负金币",
+        icon = DCEI.Texture("smh_cookie"),
+        rarity = "permanent",
+        max_level = 1, -- 该神器仅可获得1次
+    },
+    -- 初始化函数，应用或加载此神器时将触发允许负金币
+    function()
+        Api:AllowNegativeGold()
+    end,
+    true -- 添加到神器池
+)
+工具
+---在指定时间后执行回调
+---@param callback fun()
+---@param duration number 秒数
+---@param execute_on_terminate boolean 如果为true，在战斗结束时清除所有计时器时将执行回调
+Api:RunTimer(callback, duration, execute_on_terminate)
+
+---在指定时间后执行回调，战斗结束后不会执行
+---@param callback fun()
+---@param duration number 秒数
+---@param missile_owner_id number 1 - 玩家, 2 - 敌人，用于黑洞和悖论术士以消除子弹效果
+Api:RunCombatOnlyTimer(callback, duration, missile_owner_id)
+
+---返回一个[min, max]之间的随机整数，确保SL之后的结果相同
+---@param min number
+---@param max number
+---@return number
+Api:RandomInt(min, max)
+
+---返回一个[min, max]之间的随机小数，确保SL之后的结果相同
+---@param min number
+---@param max number
+---@return number
+Api:RandomFloat(min, max)
+
+---在战斗中增加金币
+Api:AddGold(amount)
+
+---获取战斗中的金币
+Api:GetGold(amount)
+
+---@class FloatingCombatTextArgs
+---@field color string example "<color=red>" "<color=#54bdff>"
+---@field size string example "<size=100%>"
+---@field show_duration 文字出现的时间
+---@field anim_duration 文字动画的时间
+---@field anim_type number 动画类型: 0 - 跳入 1 - 升起
+---@field center_at_unit boolean 文字会在combat_unit的中心显示
+---@field horizontal_offset number 文字在combat_unit的水平偏移
+---@field use_impact_offset boolean 文字会显示在击中特效上方
+---@field offset_radius number 文字会以这个半径随机偏移
+
+---在战斗中显示一些浮动文字，如伤害数字，特殊信息等
+---@param combat_unit CombatUnit
+---@param content string
+---@param args FloatingCombatTextArgs
+Api:DisplayFloatingCombatText(combat_unit, content, args)

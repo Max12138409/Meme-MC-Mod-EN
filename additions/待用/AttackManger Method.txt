@@ -1,0 +1,74 @@
+每一个 CombatUnit 都有自己的 AttackManager 实例. 假设现在你有一个名为 caster 的 CombatUnit ，你可以通过如下方式访问它的 AttackManager:
+
+local attack_manager = caster:Attack
+以下是 AttackManager 的函数列表.
+
+---返回攻击是否暴击
+---@param caster CombatUnit
+AttackManager:IsAttackCritical(caster)
+
+---返回攻击是否被闪避
+---@param target CombatUnit
+---@param missile_id string
+AttackManager:IsAttackDodged(target, missile_id)
+
+---向弹夹添加一个子弹
+---@param emoji_id string
+---@param count number
+---@param count number
+AttackManager:AddEmojiToDeck(emoji_id, count, index)
+
+---从弹夹中去除某种子弹
+---@param emoji_id string
+AttackManager:RemoveEmojiFromDeck(emoji_id)
+
+---获得unit当前弹夹
+AttackManager:GetEmojiDeck()
+
+---获得unit弹夹中所有可用的子弹列表
+AttackManager:GetAvailableEmojiIdsInDeck()
+
+---返回unit弹夹中是否有石头
+AttackManager:HasRock()
+
+---使unit发射一个新的子弹
+---@param target CombatUnit
+---@param missile_id string
+AttackManager:NewMissileAttack(target, missile_id)
+
+---使unit发射一个新的大招
+---@param target CombatUnit
+---@param from_open_hand boolean
+AttackManager:NewUltimateAttack(target, from_open_hand)
+
+---当unit重新装弹时调用注册的回调函数
+---@param callback fun(level)
+AttackManager:RegisterOnMagazineResetCallback(perk_or_relic_name, callback)
+
+---当unit发射子弹时调用注册的回调函数
+---@param callback fun(level, attack_data, caster, target)
+AttackManager:RegisterOnMissileLaunchCallback(perk_or_relic_name, callback)
+
+---当unit被子弹击中时调用注册的回调函数
+---@param callback fun(level, attack_data, caster, target)
+AttackManager:RegisterOnMissileHitCallback(perk_or_relic_name, callback)
+
+---当unit发射的子弹击中敌人时调用注册的回调函数
+---@param callback fun(level, attack_data, caster, target)
+AttackManager:RegisterOnMissileImpactCallback(perk_or_relic_name, callback)
+
+---当unit用自身护甲抵消伤害时时调用注册的回调函数
+---@param callback fun(level, attack_data, caster, target, block)
+AttackManager:RegisterOnMissileDamageBlockCallback(perk_or_relic_name, callback)
+
+---当unit发射大招时时调用注册的回调函数
+---@param callback fun(level, caster, target)
+AttackManager:RegisterOnUltimateLaunchCallback(perk_or_relic_name, callback)
+
+---当unit发射的大招击中敌人时时调用注册的回调函数
+---@param callback fun(level, attack_data, caster, target)
+AttackManager:RegisterOnUltimateImpactCallback(perk_or_relic_name, callback)
+
+---当unit被大招击中时调用注册的回调函数
+---@param callback fun(level, attack_data, caster, target)
+AttackManager:RegisterOnUltimateHitCallback(perk_or_relic_name, callback)
