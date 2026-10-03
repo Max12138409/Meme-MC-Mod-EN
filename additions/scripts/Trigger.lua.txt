@@ -9,7 +9,7 @@ MOD_MANAGER:AddMod(function(Api)
 --抉择池
 Api:SetChoicePool("Steve", {
  --新增抉择
---github测试用
+
 
 
 
@@ -74,6 +74,13 @@ local TAG_missile_zhuren = "<size=300%><sprite name=mod_missile_zhuren></size>"-
 local TAG_missile_gongjian = "<size=200%><sprite name=mod_missile_gongjian></size>"  --弓箭
 local TAG_missile_jian = "<size=200%><sprite name=mod_missile_jian></size>"--箭
 local TAG_missile_nu = "<size=200%><sprite name=mod_missile_nu></size>"  --弩
+local TAG_missile_lieyandan = "<size=200%><sprite name=mod_missile_lieyandan></size>"  --烈焰弹
+local TAG_missile_zsj = "<size=200%><sprite name=mod_missile_zsj></size>"   -- 钻石剑
+local TAG_missile_caofangkuai = "<size=200%><sprite name=mod_missile_cfk></size>"--草方块
+
+
+
+
 --属性
 local TAG_shuxing_baoshidu = "<size=200%><sprite name=mod_shuxing_baoshidu></size>"
 --Relic
@@ -104,6 +111,7 @@ local TAG_perk_fajiao = "<size=200%><sprite name=mod_perk_fajiao></size>"       
 local TAG_perk_zhuluan = "<size=200%><sprite name=mod_perk_zhuluan></size>"            --蛛卵
 local TAG_perk_zhuwang = "<size=200%><sprite name=mod_perk_zhuwang></size>"            --蛛网
 local TAG_perk_ji = "<size=200%><sprite name=mod_perk_ji></size>"
+
 --表情包
 local TAG_tieba_xiao = "<size=200%><sprite name=tieba_xiao></size>"                    --贴吧：笑
 local TAG_landou_daxiao = "<size=550%><sprite name=landou_daxiao></size>"              --大笑（蓝豆）     
@@ -121,19 +129,19 @@ local TAG_geng_chuanshanjia = "<size=900%><sprite name=geng_chuanshanjia></size>
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---New Choices
+--New Choice
     --Initial Quest
-Api:RegisterChoice({
+    Api:RegisterChoice({
         id = "RW_ChuJi",
         display_name = "Crossroads\n".."(Quest Choice)",
         image = DCEI.Texture("RW_ChuJi"),
-        description = "\nYour consciousness was born in a blank space, with a line of white text printed on the surrounding dirt: \"Creating World\" (Note: Once the questline is determined, it cannot be changed)",
+        description = "\nYour consciousness was born into a blank void, and a line of white text was printed on the surrounding dirt: \"Creating World\" (Note: once the questline is determined, it cannot be changed)",
         options = {
             {
-                flavor = "Head to the Nether!"..TAG_relic_xjhj_d,
-                description = "Obtain " .. TAG_relic_dahuoshi,
+                flavor = "Go to the Nether!"..TAG_relic_xjhj_d,
+                description = "Gain" .. TAG_relic_dahuoshi,
                 aftermath_narrative = "\nRemember to bring gold boots, flint and steel, soul speed......",
-                aftermath_description = "<color=#47b05d>".."Obtained</color>" .. TAG_relic_dahuoshi,
+                aftermath_description = "<color=#47b05d>".."Gain</color>" .. TAG_relic_dahuoshi,
                 -- modify_attributes = {
                 --     health_maximum = 200,
                 -- },
@@ -142,10 +150,10 @@ Api:RegisterChoice({
                 },
             },
             {
-                flavor = "Head to the End!"..TAG_relic_longdan,
-                description = "Obtain " .. TAG_relic_zhenzhu,
-                aftermath_narrative = "\nYou're brave huh, remember not to bring a water bucket",
-                aftermath_description = "<color=#47b05d>".."Obtained</color>" .. TAG_relic_zhenzhu,
+                flavor = "Go to the End!"..TAG_relic_longdan,
+                description = "Gain" .. TAG_relic_zhenzhu,
+                aftermath_narrative = "\nYou're pretty brave, huh. Remember not to bring a water bucket",
+                aftermath_description = "<color=#47b05d>".."Gain</color>" .. TAG_relic_zhenzhu,
                 -- modify_attributes = {
                 --     health_maximum = -100,
                 -- },
@@ -154,10 +162,10 @@ Api:RegisterChoice({
                 },
             },
             {
-                flavor = "Just go home...",
-                description = "Obtain " ..TAG_relic_mingling,
-                aftermath_narrative = "\nHome is comfortable, I want to be a NEET forever",
-                aftermath_description = "<color=#47b05d>".."Obtained</color>" .. TAG_relic_mingling,
+                flavor = "Let's just go home...",
+                description = "Gain" ..TAG_relic_mingling,
+                aftermath_narrative = "\nHome is still more comfortable; I'm going to spend the rest of my life in retirement, yeah",
+                aftermath_description = "<color=#47b05d>".."Gain</color>" .. TAG_relic_mingling,
                 gain_relics = {
                     Relic_MingLing = 1,
                 },
@@ -165,17 +173,17 @@ Api:RegisterChoice({
         }
     })
     --Second Choice
-Api:RegisterChoice({
+    Api:RegisterChoice({
         id = "RW_ErJi",
         display_name = "What to do next?",
         image = DCEI.Texture("RW_ErJi"),
-        description = "Go home and rummage through what Alex left behind or mine some obsidian? If all else fails, install a Jenny mod and play around"..TAG_tieba_xiao,
+        description = "Go home and rummage through what Alex left behind, or mine some obsidian? If all else fails, download the Jenny mod and play around"..TAG_tieba_xiao,
         options = {
             {
                 flavor = "Mine obsidian "..TAG_relic_xjhj_d,
-                description = "Obtain " .. TAG_relic_heiyaoshi,
-                aftermath_narrative = "A few minutes after mining, you mined enough obsidian to build a portal",
-                aftermath_description = "<color=#47b05d>".."Obtained</color>" .. TAG_relic_heiyaoshi,
+                description = "Gain" .. TAG_relic_heiyaoshi,
+                aftermath_narrative = "After mining for a few minutes, you mined enough obsidian to build a portal",
+                aftermath_description = "<color=#47b05d>".."Gain</color>" .. TAG_relic_heiyaoshi,
                 -- modify_attributes = {
                 --     health_maximum = 200,
                 -- },
@@ -187,13 +195,13 @@ Api:RegisterChoice({
                 },
             },
             {
-                flavor = "Rummage through boxes"..TAG_relic_longdan,
+                flavor = "Rummage through everything"..TAG_relic_longdan,
                 requirement = {
                     relic = "Relic_ZhenZhu",
                 },
-                description = "Obtain " .. TAG_relic_lieyan,
-                aftermath_narrative = "You rummaged through Alex's house and found some things she brought back from her trip to the Nether",
-                aftermath_description = "<color=#47b05d>".."Obtained</color>" .. TAG_relic_lieyan,
+                description = "Gain" .. TAG_relic_lieyan,
+                aftermath_narrative = "You rummaged around Alex's house and found some things she brought back from her trip to the Nether",
+                aftermath_description = "<color=#47b05d>".."Gain</color>" .. TAG_relic_lieyan,
                 -- modify_attributes = {
                 --     health_maximum = -100,
                 -- },
@@ -203,9 +211,9 @@ Api:RegisterChoice({
             },
             {
                 flavor = "Mine some ore",
-                description = "Obtain " ..TAG_relic_zuanshi,
-                aftermath_narrative = "Mined two shiny diamonds, but they're useless right now",
-                aftermath_description = "<color=#47b05d>".."Obtained 2</color>" .. TAG_relic_zuanshi,
+                description = "Gain" ..TAG_relic_zuanshi,
+                aftermath_narrative = "You mined two sparkling diamonds, but they're not much use right now",
+                aftermath_description = "<color=#47b05d>".."Gain 2</color>" .. TAG_relic_zuanshi,
                 gain_relics = {
                     Relic_ZuanShi = 2,
                 },
@@ -217,13 +225,13 @@ Api:RegisterChoice({
         id = "RW_SanJi",
         display_name = "Endgame",
         image = DCEI.Texture("RW_SanJi"),
-        description = "After traveling through mountains and rivers, through countless hardships, what awaits you is?",
+        description = "After traveling over mountains and rivers and going through countless hardships, what awaits you?",
         options = {
             {
-                flavor = "Face the Nether army!",
-                description = "Obtain " .. TAG_relic_xjhj_sp,
-                aftermath_narrative = "After a bloody battle (do skeletons have blood?), you defeated the Nether army and took their treasure",
-                aftermath_description = "<color=#47b05d>".."Obtained</color>" .. TAG_relic_xjhj_sp,
+                flavor = "Face the Nether legion!",
+                description = "Gain" .. TAG_relic_xjhj_sp,
+                aftermath_narrative = "After a bloody battle (do skeletons have blood?), you defeated the Nether legion and took their treasure",
+                aftermath_description = "<color=#47b05d>".."Gain</color>" .. TAG_relic_xjhj_sp,
                 -- modify_attributes = {
                 --     health_maximum = -100,
                 -- },
@@ -236,9 +244,9 @@ Api:RegisterChoice({
             },
             {
                 flavor = "Face the Ender Dragon!",
-                description = "Obtain " .. TAG_relic_longdan,
-                aftermath_narrative = "Ender Dragon Challenge Guide:\n".."Step 1: Use bow and arrow to shoot down the crystals to prevent the Ender Dragon from healing\n".."Step 2: Place a bed in front of the Ender Dragon\n".."Step 3: Sleep",
-                aftermath_description = "<color=#47b05d>".."Obtained</color>" .. TAG_relic_longdan,
+                description = "Gain" .. TAG_relic_longdan,
+                aftermath_narrative = "Ender Dragon challenge guide:\n".."Step one: shoot the crystals with a bow to stop the Ender Dragon from healing\n".."Step two: place a bed in front of the Ender Dragon's head\n".."Step three: sleep",
+                aftermath_description = "<color=#47b05d>".."Gain</color>" .. TAG_relic_longdan,
                 -- modify_attributes = {
                 --     health_maximum = 200,
                 -- },
@@ -250,10 +258,10 @@ Api:RegisterChoice({
                 },
             },
             {
-                flavor = "What hardships? Being a homebody is quite comfortable"..TAG_tieba_xiao,
-                description = "Obtain " ..TAG_relic_zuanshi,
-                aftermath_narrative = "Daily tasks:\n  Eat: 5/3\n  Use toilet: 1/3\n  Talk to opposite sex: 0/1\n  Jerk off: 15/4",
-                aftermath_description = "<color=#47b05d>".."Obtained 2</color>" .. TAG_relic_zuanshi,
+                flavor = "What countless hardships? Staying at home is quite comfortable"..TAG_tieba_xiao,
+                description = "Gain" ..TAG_relic_zuanshi,
+                aftermath_narrative = "Daily tasks:\n  Eat: 5/3\n  Use the toilet: 1/3\n  Talk to the opposite sex: 0/1\n  Take off: 15/4",
+                aftermath_description = "<color=#47b05d>".."Gain 2</color>" .. TAG_relic_zuanshi,
                 gain_relics = {
                     Relic_ZuanShi = 2,
                 },
@@ -265,13 +273,13 @@ Api:RegisterChoice({
         id = "Ch_LiuLang",
         display_name = "Wandering Lead",
         image = DCEI.Texture("Ch_LiuLang"),
-        description = "While hiking in the desert you met a wandering trader, he claims he's going to the End to get something good, but he also has goods to sell on him right now, you decide to:",
+        description = "While walking through the desert, you met a wandering trader. He claimed he was going to the End to get something good, but he also has goods to sell on him right now. You decide:",
         options = {
             {
                 flavor = "Say you're going to the Nether and ask for his help "..TAG_relic_xjhj_d,
-                description = "Obtain " .. TAG_relic_jinding,
+                description = "Gain" .. TAG_relic_jinding,
                 aftermath_narrative = "He was moved by your fearless (brainless) spirit and decided to give you some hard currency"..TAG_landou_jingli,
-                aftermath_description = "<color=#47b05d>".."Obtained</color>" .. TAG_relic_jinding,
+                aftermath_description = "<color=#47b05d>".."Gain</color>" .. TAG_relic_jinding,
                 -- modify_attributes = {
                 --     health_maximum = 200,
                 -- },
@@ -281,9 +289,9 @@ Api:RegisterChoice({
             },
             {
                 flavor = "Buy something from him",
-                description = "Obtain " .. TAG_perk_mianbao,
+                description = "Gain" .. TAG_perk_mianbao,
                 aftermath_narrative = "You spent 7 emeralds to buy a piece of bread"..TAG_landou_daxiao,
-                aftermath_description = "<color=#47b05d>".."Obtained</color>" .. TAG_perk_mianbao,
+                aftermath_description = "<color=#47b05d>".."Gain</color>" .. TAG_perk_mianbao,
                 -- modify_attributes = {
                 --     health_maximum = -100,
                 -- },
@@ -293,9 +301,9 @@ Api:RegisterChoice({
             },
             {
                 flavor = "I only see a lead, where's the trader?",
-                description = "Obtain 3" ..Api.GameMechanicTags.TAG.vulnerable.."\nand 300"..Api.GameMechanicTags.TAG.health.."\nand 3%"..Api.GameMechanicTags.TAG.crit,
-                aftermath_narrative = "Didn't get the lead, and got spat on by a llama. But combat skills also improved, became tougher"..TAG_landou_xu,
-                aftermath_description = "Obtain 3" ..Api.GameMechanicTags.TAG.vulnerable.."and 300"..Api.GameMechanicTags.TAG.health.."\nand 3%"..Api.GameMechanicTags.TAG.crit,
+                description = "Gain 3" ..Api.GameMechanicTags.TAG.vulnerable.."\nand 300"..Api.GameMechanicTags.TAG.health.."\nand 3%"..Api.GameMechanicTags.TAG.crit,
+                aftermath_narrative = "You didn't manage to grab the lead, and you also got spat on by a llama. But at the same time, your combat skills improved, and you became tougher"..TAG_landou_xu,
+                aftermath_description = "Gain 3" ..Api.GameMechanicTags.TAG.vulnerable.."and 300"..Api.GameMechanicTags.TAG.health.."\nand 3%"..Api.GameMechanicTags.TAG.crit,
                 modify_attributes = {
                     health_maximum = 300,
                     vulnerable = 3,
@@ -310,17 +318,17 @@ Api:RegisterChoice({
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---Custom Attributes
---Chicken Counter
-local ji_quest_max = 150
+--自定义属性
+--鸡计数器
+local ji_quest_max = 300
 Api:RegisterAttribute({
     id = "JS_ji",
-    display_name = "Hatch Progress",
-    description = "When hatch progress reaches 100, randomly hatch an egg",
+    display_name = "Hatching Progress",
+    description = "When hatching progress reaches 300, randomly hatch an egg",
     icon = DCEI.Texture("Missile_Ji"),
     display_type = Api.DisplayType.Integer,
     is_neutral = true, -- if true, font color will always be white
-    flavor_text = "About to hatch, what will it be?",
+    flavor_text = "It's about to hatch, what will it be?",
     display_requirements = {
         is_hero = true, -- only show for hero
         perk = "Perk_Power_Ji", -- only show if has this perk
@@ -329,16 +337,16 @@ Api:RegisterAttribute({
     },
     })
 ----------------------------------------------------------------------------------------------
---Satiety
+-- Satiety
 local baoshidu_max = 300
 Api:RegisterAttribute({
         id = "JS_BaoShi",
         display_name = "Satiety",
-        description = "Your "..TAG_perk_shiwu.." will automatically fill "..TAG_shuxing_baoshidu..". When "..TAG_shuxing_baoshidu.." is full, it can be converted to equal max health at combat end.".."<color=red>".."But "..TAG_shuxing_baoshidu.." will not be saved at the end of each combat round</color>",
+        description = "Your "..TAG_perk_shiwu.." will automatically fill "..TAG_shuxing_baoshidu..". "..TAG_shuxing_baoshidu.." can be converted into an equal amount of max health at the end of combat when full. ".."<color=red>".."But "..TAG_shuxing_baoshidu.." will not be saved at the end of each round of combat</color>",
         icon = DCEI.Texture("baoshidu"),
         display_type = Api.DisplayType.Integer,
         is_neutral = true, -- if true, font color will always be white
-        flavor_text = "Food is heaven, without it you starve",
+        flavor_text = "Food is the first necessity of the people; without it, you will starve to death",
         display_requirements = {
             is_hero = true, -- only show for hero -- only show if has this perk
             perk = "Perk_Power_Zhu",
@@ -348,15 +356,15 @@ Api:RegisterAttribute({
         })
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---New Anti-Stress Artifact
---Initial Quest
+-- New stress-resistance artifact
+-- Initial quest
 Api:RegisterRelic("Relic_RenWu", {
         id = "Relic_RenWu",
-        display_name = "Nether or End",
+        display_name = "The Nether or the End",
         description = "Go to the Nether or the End?\n".."Quest: Obtain "..TAG_relic_zhenzhu.." or "..TAG_relic_dahuoshi,
         rarity = "legendary",
         icon = DCEI.Texture("Relic_RenWu"),  
-        flavor_text = "Choose your path (choosing will close other questlines)",
+        flavor_text = "Choose your path (other quest lines will be closed after choosing)",
         }, function (combat_unit)
         local name = "Relic_RenWu"
         combat_unit:RegisterOnCombatStartCallback(name, function(level,target)
@@ -372,17 +380,17 @@ Api:RegisterRelic("Relic_RenWu", {
                      end
             end                              
         end)
-        end, false)        
+        end, false)  
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    
---Nether Route
---Head to the Nether
+-- Nether Route
+-- Go to the Nether
 Api:RegisterRelic("Relic_RenWu_QWXJ", {
         id = "Relic_RenWu_QWXJ",
         display_name = "Go to the Nether",
         description = "<color=red>".."Quest</color>"..": Build a Nether Portal\n".."<color=#47b05d>".."Reward</color>"..": "..TAG_relic_csm,
         rarity = "legendary",
         icon = DCEI.Texture("Relic_RenWu_QWXJ"),  
-        flavor_text = "Want to go to the Nether? Get obsidian first",
+        flavor_text = "Want to go to the Nether? Get obsidian first.",
         },function (combat_unit)
         local name = "Relic_RenWu_QWXJ"
         combat_unit:RegisterOnCombatStartCallback(name, function(level,target)
@@ -392,14 +400,15 @@ Api:RegisterRelic("Relic_RenWu_QWXJ", {
             end
         end)
         end, false)
---Arrive in the Nether
+
+-- Arrive in the Nether
 Api:RegisterRelic("Relic_RenWu_DDXJ", {
         id = "Relic_RenWu_DDXJ",
         display_name = "Arrive in the Nether",
-        description = "<color=red>".."Quest</color>"..": Defeat the Nether army\n".."<color=#47b05d>".."Reward</color>"..": "..TAG_relic_xjhj_sp,
+        description = "<color=red>".."Quest</color>"..": Defeat the Nether Legion\n".."<color=#47b05d>".."Reward</color>"..": "..TAG_relic_xjhj_sp,
         rarity = "legendary",
         icon = DCEI.Texture("Relic_RenWu_DDXJ"),  
-        flavor_text = "Finally here, let me see which pigman has extra scrap at home",
+        flavor_text = "Finally arrived. Let me see which pigman's house has extra debris.",
         },function (combat_unit)
         local name = "Relic_RenWu_DDXJ"
         combat_unit:RegisterOnCombatStartCallback(name, function(level,target)
@@ -409,76 +418,76 @@ Api:RegisterRelic("Relic_RenWu_DDXJ", {
         end)
         end, false)
 
---Flint and Steel
+-- Flint and Steel
 Api:RegisterRelic("Relic_DaHuoShi", {
         id = "Relic_DaHuoShi",
         display_name = "Steve's Flint and Steel",
-        description ="Obtain ".."<color=#47b05d>".."2</color>"..Api.GameMechanicTags.TAG.attack..
+        description ="Gain ".."<color=#47b05d>".."2</color>"..Api.GameMechanicTags.TAG.attack..
         "<color=#47b05d>".."20</color>"..Api.GameMechanicTags.TAG.energy_regen,
         icon = DCEI.Texture("Relic_DaHuoShi"),
         rarity = "rare",
-        flavor_text = "Flint and steel passed down from Steve's ancestors, he left it for Steve",
+        flavor_text = "The flint and steel passed down from Steve's ancestors, left for Steve by him.",
         modify_attributes = {
-            attack = 2,               --Attack
-            energy_per_second = 20,   --Energy regen
+            attack = 2,               -- Strength
+            energy_per_second = 20,   -- Energy Regen
         },
         })
 
---Obsidian
+-- Obsidian
 Api:RegisterRelic("Relic_HeiYaoShi", {
         id = "Relic_HeiYaoShi",
         display_name = "Obsidian",
-        description ="Obtain ".."<color=#47b05d>".."2</color>"..Api.GameMechanicTags.TAG.armor,
+        description ="Gain ".."<color=#47b05d>".."2</color>"..Api.GameMechanicTags.TAG.armor,
         icon = DCEI.Texture("Relic_HeiYaoShi"),
         rarity = "epic",
-        flavor_text = "10000% purity Overworld native obsidian, hardness comparable to bedrock, best for building portals",
+        flavor_text = "10000% pure Overworld-native obsidian, hardness comparable to bedrock, perfect for building portals.",
         modify_attributes = {
-            block = 2,                  --Armor
+            block = 2,                  -- Armor
         },
         })
 
---Netherite Scrap
+-- Netherite Scrap
 Api:RegisterRelic("Relic_XJHJ_SuiPian", {
         id = "Relic_XJHJ_SuiPian",
         display_name = "Netherite Scrap",
-        description ="Obtain ".."<color=#47b05d>".."5</color>"..Api.GameMechanicTags.TAG.armor
+        description ="Gain ".."<color=#47b05d>".."5</color>"..Api.GameMechanicTags.TAG.armor
         .."<color=#47b05d>".."5</color>"..Api.GameMechanicTags.TAG.thorns,
         icon = DCEI.Texture("Relic_XJHJ_SuiPian"),
         rarity = "epic",
-        flavor_text = "Precursor to netherite ingot, CP: @Gold Ingot",
+        flavor_text = "The predecessor of Netherite Ingot, CP: @Gold Ingot",
         modify_attributes = {
             retaliate = 5,     
-            block = 5,      --Armor
+            block = 5,      -- Armor
         },
         })
 
---Gold Ingot
+-- Gold Ingot
 Api:RegisterRelic("Relic_JinDing", {
         id = "Relic_JinDing",
         display_name = "Gold Ingot",
-        description ="Obtain ".."<color=#47b05d>".."12</color>"..Api.GameMechanicTags.TAG.income,
+        description ="Gain ".."<color=#47b05d>".."12</color>"..Api.GameMechanicTags.TAG.income,
         icon = DCEI.Texture("Relic_JinDing"),
         rarity = "epic",
-        flavor_text = "Breaks instantly when making equipment, excellent malleability, piglins love it, its use in the real world is even more heavyweight",
+        flavor_text = "Equipment made from it breaks instantly, but its ductility is excellent; pigmen love it, and its role in the real world is even more heavyweight.",
         modify_attributes = {
-            income = 12,                  --Armor
+            income = 12,                  -- Armor
         },
         }, function(combat_unit)
         end,true)
 
---Netherite Ingot
+-- Netherite Ingot
 Api:RegisterRelic("Relic_XJHJ_Ding", {
         id = "Relic_XJHJ_Ding",
         display_name = "Netherite Ingot",
-        description ="Every critical hit releases an ultimate, but ultimate damage is reduced by ".."<color=red>".."60%</color>"
-        .."\nObtain ".."<color=#47b05d>".."20</color>"..Api.GameMechanicTags.TAG.income.."<color=#47b05d>".."8</color>"..Api.GameMechanicTags.TAG.thorns.."<color=#47b05d>".."10</color>"..Api.GameMechanicTags.TAG.armor,
+        description ="Each critical hit releases an ultimate, but ultimate damage is reduced by ".."<color=red>".."60%</color>"
+        .."\nGain ".."<color=#47b05d>".."20</color>"..Api.GameMechanicTags.TAG.income.."<color=#47b05d>".."8</color>"..Api.GameMechanicTags.TAG.thorns.."<color=#47b05d>".."10</color>"..Api.GameMechanicTags.TAG.armor,
         icon = DCEI.Texture("Relic_XJHJ_Ding"),
         rarity = "legendary",
-        flavor_text = "Netherite, an alloy of extremely high rarity, made by mixing scraps smelted from the essence of ancient debris from Nether creatures with gold ingots. I wish I could find two more, my alloy chestplate would be almost done\" —Explorer's Notes•Origin Adventure",
+        flavor_text = "Netherite, an extremely rare alloy, obtained by mixing gold ingots with scraps smelted from the essence of ancient debris of Nether creatures. I really hope to find two more pieces; my netherite chestplate is almost finished\" — Explorer's Notes • Origin Adventure",
         modify_attributes = {
             income = 20,
             retaliate = 8,     
-            block = 10,                   --Income
+            block = 10,                   -- Income
             ultimate_damage = -0.6
          },
         },function(combat_unit)
@@ -492,20 +501,20 @@ Api:RegisterRelic("Relic_XJHJ_Ding", {
         end)
         end,false)
 
---Nether Portal         --Random number method is here
+-- Nether Portal         -- Random number method is here
 Api:RegisterRelic("Relic_CSM", {
         id = "Relic_CSM",
         display_name = "Nether Portal",
-        description ="At combat start, randomly summon 1~3 "..TAG_missile_zhuren.." from the Nether to assist you in battle.",
+        description ="At the start of combat, summon 1 "..TAG_missile_zhuren.." from the Nether to assist you in battle.",
         icon = DCEI.Texture("Relic_CSM"),
         rarity = "combo",
-        flavor_text = "Portal, every story needs one, netherite armor, blaze powder, and the Overworld's ghasts and pigmen all owe it",
+        flavor_text = "A portal, no story can do without it; the Netherite set, Blaze Powder, and the Overworld's Ghasts and Pigmen are all thanks to it",
         },function(combat_unit)
         local name = "Relic_CSM"
         combat_unit:RegisterOnCombatStartCallback(name, function (level, target)
-            local randoms = math.random(1,3)
+            local randoms = math.random(1,1)
             level = randoms
-            for i=1,level do   --level is the number of times to repeat
+            for i=1,level do   --level is the number of times to execute repeatedly
                 combat_unit.Attack:AddEmojiToDeck("Missile_JSZR", 1)
                 combat_unit:PlayAwardEmojiAnimation("Missile_JSZR", 1)
             end
@@ -515,15 +524,15 @@ Api:RegisterRelic("Relic_CSM", {
 
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---End Route
---Head to the End
+-- The End Route
+-- Go to the End
 Api:RegisterRelic("Relic_RenWu_QWMD", {
         id = "Relic_RenWu_QWMD",
         display_name = "Go to the End",
-        description = "<color=red>".."Quest</color>"..": Craft Eye of Ender\n".."<color=#47b05d>".."Reward</color>"..": "..TAG_relic_end_eye,
+        description = "<color=red>".."Quest</color>"..": Craft an Eye of Ender\n".."<color=#47b05d>".."Reward</color>"..": "..TAG_relic_end_eye,
         rarity = "legendary",
         icon = DCEI.Texture("Relic_RenWu_QWMD"),  
-        flavor_text = "Want to go to the End? Get blaze powder first",
+        flavor_text = "Want to go to the End? Get Blaze Powder first.",
         },function (combat_unit)
         local name = "Relic_RenWu_QWMD"
         combat_unit:RegisterOnCombatStartCallback(name, function(level,target)
@@ -534,14 +543,14 @@ Api:RegisterRelic("Relic_RenWu_QWMD", {
         end)
         end, false)
 
---Arrive in the End
+-- Arrive in the End
 Api:RegisterRelic("Relic_RenWu_DDMD", {
         id = "Relic_RenWu_DDMD",
         display_name = "Arrive in the End",
         description = "<color=red>".."Quest</color>"..": Face the Ender Dragon\n".."<color=#47b05d>".."Reward</color>"..": "..TAG_relic_longdan,
         rarity = "legendary",
         icon = DCEI.Texture("Relic_RenWu_DDMD"),  
-        flavor_text = "Want to go to the End? Get blaze powder first",
+        flavor_text = "Want to go to the End? Get Blaze Powder first.",
         },function (combat_unit)
         local name = "Relic_RenWu_DDMD"
         combat_unit:RegisterOnCombatStartCallback(name, function(level,target)
@@ -555,41 +564,41 @@ Api:RegisterRelic("Relic_RenWu_DDMD", {
 Api:RegisterRelic("Relic_LieYanFen", {
         id = "Relic_LieYanFen",
         display_name = "ALEX's Blaze Powder",
-        description ="Obtain ".."<color=#47b05d>".."3</color>"..Api.GameMechanicTags.TAG.attack,
+        description ="Gain ".."<color=#47b05d>".."3</color>"..Api.GameMechanicTags.TAG.attack,
         icon = DCEI.Texture("Relic_LieYanFen"),
         rarity = "rare",
-        flavor_text = "Blaze's \"essence\"",
+        flavor_text = "The \"essence\" of a Blaze",
         modify_attributes = {
-            attack = 3,    --Attack
+            attack = 3,    -- Strength
         },
         })
 
---Ender Pearl
+-- Ender Pearl
 Api:RegisterRelic("Relic_ZhenZhu", {
         id = "Relic_ZhenZhu",
         display_name = "Ender Pearl",
-        description ="Obtain ".."<color=#47b05d>".."8%</color>"..Api.GameMechanicTags.TAG.dodge_chance,
+        description ="Gain ".."<color=#47b05d>".."8%</color>"..Api.GameMechanicTags.TAG.dodge_chance,
         icon = DCEI.Texture("Relic_ZhenZhu"),
         rarity = "rare",
-        flavor_text = "Farm one by one before fighting the dragon, throw them by the box after beating the dragon",
+        flavor_text = "Before fighting the dragon, farm them one by one; after beating the dragon, throw them away box by box",
         modify_attributes = {
-            dodge_chance = 0.08,    --Dodge
+            dodge_chance = 0.08,    -- Dodge
         },
         })
 
---Eye of Ender
+-- Eye of Ender
 Api:RegisterRelic("Relic_YanJing", {
         id = "Relic_YanJing",
         display_name = "Eye of Ender",
-        description ="Obtain "..TAG_relic_end_eye.." and "
+        description ="Gain "..TAG_relic_end_eye.." and "
         .."<color=#47b05d>".."10%</color>"..Api.GameMechanicTags.TAG.dodge_chance
         .."<color=#47b05d>".."5</color>"..Api.GameMechanicTags.TAG.attack
         .."<color=#47b05d>".."5%</color>"..Api.GameMechanicTags.TAG.crit,
         icon = DCEI.Texture("Relic_YanJing"),
         rarity = "combo",
-        flavor_text = "The solitary will guide your direction, protect you from intrusion, head to the End",
+        flavor_text = "I will guide your direction, protect you from disturbance, and lead you to the End",
         modify_attributes = {
-            dodge_chance = 0.1,    --Dodge
+            dodge_chance = 0.1,    -- Dodge
             attack = 5,
             crit_chance = 0.05,
         },
@@ -597,28 +606,28 @@ Api:RegisterRelic("Relic_YanJing", {
         local name = "Relic_YanJing"
         combat_unit:RegisterOnCombatStartCallback(name, function(level,target)
             if combat_unit.run_instance.wave == 13 then
-                --Add bullet--not retained after combat
+                -- Add bullet -- not retained after combat
                 combat_unit.Attack:AddEmojiToDeck("Missile_YanJing", 1)
-                --Play animation for adding bullet
+                -- Play the animation for adding a bullet
                 combat_unit:PlayAwardEmojiAnimation("Missile_YanJing", 1)
-                --Get bullet count in magazine--temporarily added bullets are also counted
+                -- Get the number of bullets in the magazine -- temporarily added bullets are counted too
                 local deck_size = #combat_unit.Attack:GetEmojiDeck()
-                --Permanently add bullet after combat (deck_size is roughly the position of the last bullet in the magazine, exceeding this number before would cause a freeze, need to be careful with order if using this
+                -- Permanently add bullets after combat (deck_size is roughly the position of the last bullet in the magazine; exceeding this number previously caused a freeze, so be mindful of the order if you use this)
                 combat_unit.run_instance:ModifySavedPerkDataEmojis("Missile_YanJing", deck_size)
             end    
         end)
         end)
 
---Dragon Egg
+-- Dragon Egg
 Api:RegisterRelic("Relic_LongDan", {   
         id = "Relic_LongDan",
         display_name = "Dragon Egg",
-        description ="Obtain ".."<color=#47b05d>".."10%</color>"..Api.GameMechanicTags.TAG.dodge_chance.."When you take damage, 25% chance to restore equal health",
+        description ="Gain ".."<color=#47b05d>".."10%</color>"..Api.GameMechanicTags.TAG.dodge_chance.." When you take damage, there is a 25% chance to restore an equal amount of health",
         icon = DCEI.Texture("Relic_LongDan"),
         rarity = "legendary",
-        flavor_text = "Farm one by one before fighting the dragon, throw them by the box after beating the dragon",
+        flavor_text = "Before fighting the dragon, farm them one by one; after beating the dragon, throw them away box by box",
         modify_attributes = {
-            dodge_chance = 0.1,    --Dodge
+            dodge_chance = 0.1,    -- Dodge
         },
         },function(combat_unit)
         local name = "Relic_LongDan"
@@ -639,16 +648,16 @@ Api:RegisterRelic("Relic_LongDan", {
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---Normal Relics
---Command Block
+-- Common Relics
+-- Command Block
 Api:RegisterRelic("Relic_MingLing", {
         id = "Relic_MingLing",
         display_name = "Universal Command Block",
-        description = "<color=#FFD700>".."1.</color>".."After combat ends, ".."increase ".."<color=#47b05d>".."1</color>".." point of "..Api.GameMechanicTags.TAG.health..Api.GameMechanicTags.TAG.energy_regen
+        description = "<color=#FFD700>".."1.</color>".."After combat ends, increase ".."<color=#47b05d>".."1</color>".." point of "..Api.GameMechanicTags.TAG.health..Api.GameMechanicTags.TAG.energy_regen
         ..Api.GameMechanicTags.TAG.attack..Api.GameMechanicTags.TAG.thorns..Api.GameMechanicTags.TAG.health_regen..Api.GameMechanicTags.TAG.ultimate_damage..Api.GameMechanicTags.TAG.income
         .."<color=#FFD700>".."\n2.</color>".."Increase ".."<color=#47b05d>".."1%</color>"..Api.GameMechanicTags.TAG.attack_speed..Api.GameMechanicTags.TAG.crit..Api.GameMechanicTags.TAG.thorn_block
         ..Api.GameMechanicTags.TAG.luck,
-        flavor_text = "I'm telling you, isn't this cheating?!",
+        flavor_text = "To be honest, isn't this cheating?!",
         icon = DCEI.Texture("Relic_MingLing"),
         rarity = "legendary",
         }, function(combat_unit)
@@ -675,10 +684,10 @@ Api:RegisterRelic("Relic_MingLing", {
 Api:RegisterRelic("Relic_BuSiTuTeng", {
         id = "Relic_BuSiTuTeng",
         display_name = "Totem of Undying",
-        flavor_text = "Thanks to Evokers for open source",
-        description = "When your health is below ".."<color=red>".."500</color>"..", immediately gain ".."<color=#47b05d>".."500</color>"
+        flavor_text = "Thanks to the Evoker for open-sourcing",
+        description = "When your health is less than ".."<color=red>".."600</color>"..", immediately gain ".."<color=#47b05d>".."500</color>"
         ..Api.GameMechanicTags.TAG.health.."<color=#47b05d>".."200</color>"..Api.GameMechanicTags.TAG.health_regen.." and ".."<color=#47b05d>".."300</color>"..Api.GameMechanicTags.TAG.energy_regen
-        .."for ".."<color=red>".."</color>".."5 seconds",
+        .."Lasts ".."<color=red>".."</color>".."5 seconds",
         icon = DCEI.Texture("Relic_BuSiTuTeng"),
         rarity = "legendary",
         behavior = {
@@ -697,7 +706,7 @@ Api:RegisterRelic("Relic_BuSiTuTeng", {
         local jishu = 0
         combat_unit.Attack:RegisterOnMissileHitCallback(name, function(level,attack_data,caster,target)
             if jishu == 0 then
-			    if combat_unit:GetCurrentHealth() < 500 then
+			    if combat_unit:GetCurrentHealth() < 600 then
                     for i = 1, level do
                         Api.PerkBehaviorSystem:ApplyPerkBehaviorToSelf(target,name)
                         jishu = jishu + 1
@@ -706,61 +715,61 @@ Api:RegisterRelic("Relic_BuSiTuTeng", {
             end
         end)
         end)
---Diamond
+-- Diamond
 Api:RegisterRelic("Relic_ZuanShi", {
         id = "Relic_ZuanShi",
         display_name = "Diamond",
-        description ="Useless for now, can be used to make a diamond sword",
+        description ="Not useful for now, but can be used to craft a diamond sword",
         icon = DCEI.Texture("Relic_ZuanShi"),
         rarity = "epic",
         flavor_text = "Wow, there's a diamond",
         }, function(combat_unit)
         end,true)
---Stick
+-- Stick
 Api:RegisterRelic("Relic_MuGun", {
         id = "Relic_MuGun",
         display_name = "Stick",
-        description ="Useless for now, can be used to make a diamond sword",
+        description ="Not useful for now, but can be used to craft a diamond sword",
         icon = DCEI.Texture("Relic_MuGun"),
         rarity = "common",
-        flavor_text = "An ordinary stick, has a relative, seems to be called an electric baton",
+        flavor_text = "An ordinary stick, nothing more ordinary; it also has a relative, seems to be called an electric baton",
         }, function(combat_unit)
         end,true)
 
---Diamond Sword
+-- Diamond Sword
 Api:RegisterRelic("Relic_ZuanShiJian", {
         id = "Relic_ZuanShiJian",
         display_name = "Diamond Sword",
-        description ="Obtain a diamond sword at combat start",
+        description ="Gain a diamond sword at the start of combat",
         icon = DCEI.Texture("Missile_ZSJ"),
         rarity = "legendary",
-        flavor_text = "Once the strongest king of vanilla, one of MC's most famous symbols, can be ranked as top tier",
+        flavor_text = "Once the strongest king in vanilla, one of MC's most famous icons; it can be ranked as top-tier",
 
         }, function(combat_unit)
         local name = "Relic_ZuanShiJian"
         combat_unit:RegisterOnCombatStartCallback(name, function(level,target)
                 for i = 1, level do
-                --Add bullet--not retained after combat
+                -- Add bullet -- not retained after combat
                 combat_unit.Attack:AddEmojiToDeck("Missile_ZSJ", 1)
-                --Play animation for adding bullet
+                -- Play the animation for adding a bullet
                 combat_unit:PlayAwardEmojiAnimation("Missile_ZSJ", 1)
                 end
         end)
         end,false)
 
---Bread
+-- Bread
 Api:RegisterRelic("Relic_MianBao", {
     id = "Relic_MianBao",
     display_name = "Bread",
-    description ="Obtain ".."<color=#47b05d>".."1</color>"..TAG_perk_mianbao,
+    description ="Gain ".."<color=#47b05d>".."1</color>"..TAG_perk_mianbao,
     icon = DCEI.Texture("Missile_MianBao"),
     rarity = "common",
-    flavor_text = "Economical, delicious and cheap, can defend and restore energy",
+    flavor_text = "Economical and practical, tasty and inexpensive; it can both defend you and restore mana",
     modify_attributes = {
-        income = 0,                  --Armor
+        income = 0,                  -- Armor
     },
     behavior = {
-        description = "Energy Recovery",
+        description = "Energy Regen",
         buff_bar_icon = DCEI.Texture("Missile_MianBao"),
         modify_attributes = {
             health_per_second = 0,
@@ -779,38 +788,38 @@ Api:RegisterRelic("Relic_MianBao", {
     end)
     combat_unit:RegisterOnCombatStartCallback(name, function(level,target)
         if combat_unit.run_instance.wave == 8 then
-            --Add bullet--not retained after combat
+            -- Add bullet -- not retained after combat
             combat_unit.Attack:AddEmojiToDeck("Missile_MianBao", 1)
-            --Play animation for adding bullet
+            -- Play the animation for adding a bullet
             combat_unit:PlayAwardEmojiAnimation("Missile_MianBao", 1)
-            --Get bullet count in magazine--temporarily added bullets are also counted
+            -- Get the number of bullets in the magazine -- temporarily added bullets are counted too
             local deck_size = #combat_unit.Attack:GetEmojiDeck()
-            --Permanently add bullet after combat (deck_size is roughly the position of the last bullet in the magazine, exceeding this number before would cause a freeze, need to be careful with order if using this
+            -- Permanently add bullets after combat (deck_size is roughly the position of the last bullet in the magazine; exceeding this number previously caused a freeze, so be mindful of the order if you use this)
             combat_unit.run_instance:ModifySavedPerkDataEmojis("Missile_MianBao", deck_size)
         end    
     end)
     end)
 
---AI Code Generation Test
+-- Code Test
 -- Hungry Spider
 Api:RegisterRelic("jidezhizhu", {
     id = "jidezhizhu",
     display_name = "Hungry Spider",
     description = "When " .. TAG_missile_zhizhuyan .. " hits an enemy, add one " .. TAG_perk_mianbao .. " to the magazine",
-    flavor_text = "This spider seems to have a particular fondness for wheat, maybe it wants to make bread?",
-    icon = DCEI.Texture("jidezhizhu"), -- Please make sure your resource folder has an image named jidezhizhu
+    flavor_text = "This spider seems to have a special fondness for wheat; maybe it wants to make bread?",
+    icon = DCEI.Texture("jidezhizhu"), -- Please make sure there is an image named jidezhizhu in your resource folder
     rarity = "rare", -- Rarity set to rare
     }, function(combat_unit)
     local name = "jidezhizhu"
     -- Register hit callback function
     combat_unit.Attack:RegisterOnMissileImpactCallback(name, function(level, attack_data, caster, target)
-        -- Check if the hit bullet ID is "zhizhuyan"
+        -- Check whether the hit bullet ID is "zhizhuyan"
         if attack_data.missile_id == "Missile_ZhuYan" then
-            -- Loop to handle level (although this relic usually only has level 1, the loop is kept for compatibility)
+            -- Loop through levels (although this relic usually only has level 1, keep the loop for compatibility)
             for i = 1, level do
-                -- Add a "Missile_MianBao" bullet to the magazine
+                -- Add one "Missile_MianBao" bullet to the magazine
                 combat_unit.Attack:AddEmojiToDeck("Missile_MianBao", 1)
-                -- Play animation for obtaining bullet
+                -- Play the animation for gaining a bullet
                 combat_unit:PlayAwardEmojiAnimation("Missile_MianBao", 1)
             end
         end
@@ -820,8 +829,8 @@ Api:RegisterRelic("jidezhizhu", {
 Api:RegisterRelic("Relic_CombatPrep", {
     id = "Relic_CombatPrep",
     display_name = "Golden Apple",
-    description = "Gain ".."<color=#47b05d>".."300</color>"..Api.GameMechanicTags.TAG.health_regen.." and "
-    .."<color=#47b05d>".."100</color>"..Api.GameMechanicTags.TAG.energy_regen.." for the first 3 seconds after combat starts",
+    description = "In the first 3 seconds after combat starts, gain ".."<color=#47b05d>".."300</color>"..Api.GameMechanicTags.TAG.health_regen.." and "
+    .."<color=#47b05d>".."100</color>"..Api.GameMechanicTags.TAG.energy_regen,
     icon = DCEI.Texture("Relic_CombatPrep"),
     rarity = "legendary",
     flavor_text = "Golden apple, is this the one Adam and Eve ate?",
@@ -843,6 +852,20 @@ Api:RegisterRelic("Relic_CombatPrep", {
         end
     end)
 end,true)
+-- Redstone Block
+Api:RegisterRelic("Relic_hongshi", {
+    id = "Relic_hongshi",
+    display_name = "Regeneration Charm",
+    description = "Gain ".."<color=#47b05d>".."20</color>"..Api.GameMechanicTags.TAG.energy_regen.." and ".."<color=#47b05d>".."10</color>"..Api.GameMechanicTags.TAG.health_regen,
+    icon = DCEI.Texture("Relic_hongshi"),
+    rarity = "rare",
+    flavor_text = "Continuously emits a redstone signal; can be used to build certain things",
+    modify_attributes = {
+        energy_per_second = 20,
+        health_per_second = 10,
+    },
+})
+
 
 
 
@@ -852,14 +875,15 @@ end,true)
 
 
 
+
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---New Perks
---Mother Link
+-- New Abilities
+-- Hive Link
 Api:RegisterPerk("Perk_MuTi", {
         id = "Perk_MuTi",
-        display_name = "Mother Link",
-        description = "When spider eye hits an enemy, ".."<color=#47b05d>".."15%</color>".." chance to fire a cobweb", 
+        display_name = "Hive Link",
+        description = "When a Spider Eye hits an enemy, there is a ".."<color=#47b05d>".."15%</color>".." chance to fire a Spider Web", 
         flavor_text = "Arthropods, kid",
         icon = DCEI.Texture("Perk_MuTi"),
         perk_type = "perk",
@@ -887,12 +911,12 @@ Api:RegisterPerk("Perk_MuTi", {
             end)
         end)
 
---Breeding Spider Eggs
+-- Incubating Spider Eggs
 Api:RegisterPerk("Perk_ZhuLuan", {
         id = "Perk_ZhuLuan",
-        display_name = "Breeding Spider Eggs",
-        description = "For each spider eye in the magazine, gain ".."<color=#47b05d>".."10</color>"..Api.GameMechanicTags.TAG.health_regen.." at combat start", 
-        flavor_text = "How do you know it's time to move?\n".."When you find spider eggs...",
+        display_name = "Incubating Spider Eggs",
+        description = "For each Spider Eye in the magazine, gain ".."<color=#47b05d>".."5</color>"..Api.GameMechanicTags.TAG.health_regen.." at the start of combat", 
+        flavor_text = "When do you know it's time to move?\n".."When you find spider eggs...",
         icon = DCEI.Texture("Perk_ZhuLuan"),
         perk_type = "perk",
         rarity = "epic",
@@ -902,18 +926,18 @@ Api:RegisterPerk("Perk_ZhuLuan", {
                 local emoji_deck = combat_unit.Attack:GetEmojiDeck()
                 for k, v in pairs(emoji_deck) do
                     if v.emoji_id == "Missile_ZhuYan" then
-                        combat_unit:ModifyAttribute("health_per_second", 10, false)
+                        combat_unit:ModifyAttribute("health_per_second", 5, false)
                     end
                 end
             end)
         end)
         
---Witch's Blessing
+-- Witch's Blessing
 Api:RegisterPerk("Perk_NuWu", {
         id = "Perk_NuWu",
         display_name = "Witch's Blessing",
-        description = "Each time spider eye hits, grant double "..Api.GameMechanicTags.TAG.health.." after combat ends",
-        flavor_text = "Hehe~ hehe ha· hum!",
+        description = "Each time a Spider Eye hits, gain 2 "..Api.GameMechanicTags.TAG.health.." after combat ends",
+        flavor_text = "Hmm~ hmm ha·hm!",
         icon = DCEI.Texture("Perk_NuWu"),
         perk_type = "perk",
         rarity = "epic",
@@ -928,11 +952,11 @@ Api:RegisterPerk("Perk_NuWu", {
         end)
         end)
 
---Fermented Spider Eye
+-- Fermented Spider Eye
 Api:RegisterPerk("Perk_FaJiao", {
         id = "Perk_FaJiao",
         display_name = "Fermented Spider Eye",
-        description = "When spider eye hits an enemy, also reduce enemy's "..Api.GameMechanicTags.TAG.health_regen.." by 1", 
+        description = "When a Spider Eye hits an enemy, it also reduces the enemy's 1"..Api.GameMechanicTags.TAG.health_regen, 
         flavor_text = "This thing... can it really be eaten?!",
         icon = DCEI.Texture("fajiaozhuyan"),
         perk_type = "perk",
@@ -956,11 +980,11 @@ Api:RegisterPerk("Perk_FaJiao", {
             end)
         end)
 
---Haste I    
+-- Haste I    
 Api:RegisterPerk("Perk_JiPo1", {
         id = "Perk_JiPo1",
         display_name = "Haste I",
-        description = "Gain ".."<color=#47b05d>".."5%</color>"..Api.GameMechanicTags.TAG.attack_speed.." and after combat ends, gain ".."<color=#47b05d>".."1</color>"..Api.GameMechanicTags.TAG.armor,     --Armor
+        description = "Gain ".."<color=#47b05d>".."5%</color>"..Api.GameMechanicTags.TAG.attack_speed.." and after combat ends, gain ".."<color=#47b05d>".."1</color>"..Api.GameMechanicTags.TAG.armor,     -- Armor
         flavor_text = "Safety first",
         icon = DCEI.Texture("Perk_JiPo"),
         perk_type = "perk",
@@ -975,11 +999,11 @@ Api:RegisterPerk("Perk_JiPo1", {
             end)
         end)
 
---Haste II
+-- Haste II
 Api:RegisterPerk("Perk_JiPo2", {
         id = "Perk_JiPo2",
         display_name = "Haste II",
-        description = "Gain ".."<color=#47b05d>".."10%</color>"..Api.GameMechanicTags.TAG.attack_speed.." and after combat ends, gain ".."<color=#47b05d>".."3</color>"..Api.GameMechanicTags.TAG.income,     --Income
+        description = "Gain ".."<color=#47b05d>".."10%</color>"..Api.GameMechanicTags.TAG.attack_speed.." and after combat ends, gain ".."<color=#47b05d>".."3</color>"..Api.GameMechanicTags.TAG.income,     -- Income
         flavor_text = "Economy first",
         icon = DCEI.Texture("Perk_JiPo"),
         perk_type = "perk",
@@ -994,14 +1018,14 @@ Api:RegisterPerk("Perk_JiPo2", {
             end)
         end)
 
---Haste III
+-- Haste III
 Api:RegisterPerk("Perk_JiPo3", {
         id = "Perk_JiPo3",
         display_name = "Haste III ",
         description = "Gain ".."<color=#47b05d>".."15%</color>"
         ..Api.GameMechanicTags.TAG.attack_speed.." and after combat ends, "
-        .."gain ".."<color=#47b05d>".."5%</color>"..Api.GameMechanicTags.TAG.luck,     --Luck
-        flavor_text = "I heard the echo of [Strong Luck]!",
+        .."gain ".."<color=#47b05d>".."3%</color>"..Api.GameMechanicTags.TAG.luck,     -- Luck
+        flavor_text = "I hear the echo of [Strong Luck]!",
         icon = DCEI.Texture("Perk_JiPo"),
         perk_type = "perk",
         rarity = "legendary",
@@ -1011,16 +1035,16 @@ Api:RegisterPerk("Perk_JiPo3", {
         }, function(combat_unit)
             local name = "Perk_JiPo3"
             combat_unit:RegisterOnCombatEndCallback(name, function (level, target)
-                combat_unit.run_instance:ModifySavedPerkDataAttributes("luck", 0.05*level)
+                combat_unit.run_instance:ModifySavedPerkDataAttributes("luck", 0.03*level)
             end)
         end)
     
---Dragon's Breath
+-- Dragon's Breath
 Api:RegisterPerk("Perk_KoShui", {
         id = "Perk_KoShui",
         display_name = "Dragon's Breath",
-        description = "At combat start, dragon breath also deals ".."<color=#47b05d>".."1000%</color>"..Api.GameMechanicTags.TAG.attack.." damage to enemies", 
-        flavor_text = "Just purple bath water",
+        description = "At the start of combat, Dragon's Breath also deals ".."<color=#47b05d>".."1000%</color>"..Api.GameMechanicTags.TAG.attack.." damage to enemies", 
+        flavor_text = "Just purple bathwater",
         icon = DCEI.Texture("longshou"),
         perk_type = "perk",
         rarity = "epic",
@@ -1037,12 +1061,12 @@ Api:RegisterPerk("Perk_KoShui", {
             end)
         end)
 
---Pufferfish
+-- Pufferfish
 Api:RegisterPerk("Perk_HeTun", {
         id = "Perk_HeTun",
         display_name = "Pufferfish",
-        description = "At combat start, deal ".."<color=red>".."250</color>".." damage to self and gain ".."<color=#47b05d>".."40</color>"..Api.GameMechanicTags.TAG.health_regen, 
-        flavor_text = "According to its taste, it's really worth dying for",
+        description = "At the start of combat, deal ".."<color=red>".."250</color>".." damage to yourself and gain ".."<color=#47b05d>".."40</color>"..Api.GameMechanicTags.TAG.health_regen, 
+        flavor_text = "Judging by its taste, it's truly worth dying for",
         icon = DCEI.Texture("Perk_HeTun"),
         perk_type = "perk",
         rarity = "rare",
@@ -1056,16 +1080,16 @@ Api:RegisterPerk("Perk_HeTun", {
             end)
         end)
 
---Lucky Block
+-- Lucky Block
 Api:RegisterPerk("Perk_XingYun", {
         id = "Perk_XingYun",
         display_name = "Lucky Block",
-        description = "After combat ends, randomly gain attribute bonus, attributes are:\n"
-        .."Gain ".."<color=#47b05d>".."5</color>"..Api.GameMechanicTags.TAG.armor..","      --Armor
-        .."Gain ".."<color=#47b05d>".."10%</color>"..Api.GameMechanicTags.TAG.dodge_chance..","--Dodge
-        .."Reduce ".."<color=red>".."200</color>"..Api.GameMechanicTags.TAG.current_health..","--Health
-        .."Gain ".."<color=#47b05d>".."20</color>"..Api.GameMechanicTags.TAG.health_regen..","   --HP regen
-        .."Gain ".."<color=#47b05d>".."8</color>"..Api.GameMechanicTags.TAG.thorns,     --Thorns
+        description = "After combat ends, randomly gain attribute bonuses. The attributes are:\n"
+        .."Gain ".."<color=#47b05d>".."5</color>"..Api.GameMechanicTags.TAG.armor..","      -- Armor
+        .."Gain ".."<color=#47b05d>".."10%</color>"..Api.GameMechanicTags.TAG.dodge_chance..","-- Dodge
+        .."Reduce ".."<color=red>".."200</color>"..Api.GameMechanicTags.TAG.current_health..","-- Health
+        .."Gain ".."<color=#47b05d>".."20</color>"..Api.GameMechanicTags.TAG.health_regen..","   -- HP Regen
+        .."Gain ".."<color=#47b05d>".."8</color>"..Api.GameMechanicTags.TAG.thorns,     -- Thorns
         flavor_text = "Risk collision, high risk, high reward",
         icon = DCEI.Texture("Perk_XingYun"),
         perk_type = "perk",
@@ -1091,48 +1115,48 @@ Api:RegisterPerk("Perk_XingYun", {
             end)
         end)
 
---Thorns
+-- Thorns
 Api:RegisterPerk("Perk_JingJi", {
         id = "Perk_JingJi",
         display_name = "Thorns",
         description = "Gain ".."<color=#47b05d>".."5</color>"..Api.GameMechanicTags.TAG.thorns, 
-        flavor_text = "Hit me then",
+        flavor_text = "Hit me, then",
         icon = DCEI.Texture("fumoshu"),
         perk_type = "perk",
         rarity = "common",
-        flavor_text = "Stocked from cactus",
+        flavor_text = "Stocked from cacti",
         modify_attributes = {
             retaliate = 5,
         }
         })
 
---Hamburger
+-- Hamburger
 Api:RegisterPerk("Perk_HanBao", {
             id = "Perk_HanBao",
             display_name = "Hamburger",
-            description = "Gain "..TAG_perk_mianbao..TAG_missile_juanxincai..TAG_missile_niurou.."\nDeals 1 damage, on hit gain ".."<color=#47b05d>".."5</color>"..Api.GameMechanicTags.TAG.energy_regen,
+            description = "Gain "..TAG_perk_mianbao..TAG_missile_juanxincai..TAG_missile_niurou.."\nDeal 1 damage, and on hit gain ".."<color=#47b05d>".."5</color>"..Api.GameMechanicTags.TAG.energy_regen,
             icon = DCEI.Texture("hanbao"),
             perk_type = "missile",
             rarity = "legendary",
-            flavor_text = "Old Eight's secret little hamburger, both delicious and filling, olie gei, eat up brothers".."\n".." {====="..TAG_perk_shiwu.."=====}",
+            flavor_text = "Old Eight's secret little burger, tasty and filling, Olie give, let's go brothers".."\n".." {====="..TAG_perk_shiwu.."=====}",
             attacks = {
             Missile_JXC = 1,
             Missile_NiuRou = 1,
             Missile_MianBao = 1,
             },
             }) 
---Farmer's Hat
+-- Farmer's Hat
 Api:RegisterPerk("Perk_NongFu", {
         id = "Perk_NongFu",
         display_name = "Farmer's Hat",
-        description = "Your "..TAG_perk_shiwu.." deals extra damage equal to ".."<color=#47b05d>".."10%</color>"..Api.GameMechanicTags.TAG.energy_regen..", "
+        description = "Your "..TAG_perk_shiwu.." deals additional damage equal to ".."<color=#47b05d>".."10%</color>"..Api.GameMechanicTags.TAG.energy_regen..", "
         .."and also grants ".."<color=#47b05d>".."1</color>"..Api.GameMechanicTags.TAG.energy_regen, 
         flavor_text = "Farming is already engraved in my genes",
         icon = DCEI.Texture("Perk_NongFu"),
         perk_type = "perk",
         rarity = "rare",
         behavior = {
-            description = "Slow energy regen",
+            description = "Slow energy regeneration",
             buff_bar_icon = DCEI.Texture("Perk_NongFu"),
             modify_attributes = {
                 energy_per_second = 1,
@@ -1153,12 +1177,12 @@ Api:RegisterPerk("Perk_NongFu", {
             end
             end)
         end)
---Shepherd's Crook
+-- Shepherd's Crook
 Api:RegisterPerk("Perk_MuYang", {
             id = "Perk_MuYang",
             display_name = "Shepherd's Crook",
-            description = "When your "..TAG_perk_shengwu.." hits, consume one satiety to deal extra ".."<color=#47b05d>".."50%</color>".." damage and ".."<color=#47b05d>".."1</color>".." HP regen", 
-            flavor_text = "Actually the wandering trader used to make a living herding sheep, until a disaster turned all his sheep into cooked mutton",
+            description = "Your "..TAG_perk_shengwu.." on hit consumes 1 satiety to deal extra ".."<color=#47b05d>".."50%</color>".." damage and ".."<color=#47b05d>".."1</color>".." point of health recovery", 
+            flavor_text = "Actually, the wandering trader used to make a living by shepherding, until a natural disaster turned all his sheep into cooked mutton chops",
             icon = DCEI.Texture("Perk_MuYang"),
             perk_type = "perk",
             rarity = "rare",
@@ -1218,13 +1242,13 @@ Api:RegisterPerk("Perk_MuYang", {
                 end)
             end)
 
---AI Code Generation Test
---Mining Potion
+-- Code Test
+-- Mining Potion
 Api:RegisterPerk("Perk_GongJiang", {
     id = "Perk_GongJiang",
     display_name = "Mining Potion",
     description = "When your " .. TAG_perk_gongju .. " hits, gain " .. "<color=#47b05d>".."1%</color>" .. Api.GameMechanicTags.TAG.attack_speed,
-    flavor_text = "To do work well, must first sharpen tools",
+    flavor_text = "To do a good job, one must first sharpen one's tools",
     icon = DCEI.Texture("Perk_GongJiang"),
     perk_type = "perk",
     rarity = "rare",
@@ -1239,17 +1263,17 @@ Api:RegisterPerk("Perk_GongJiang", {
             end
         end)
     end)
---Poison Arrow
+-- Poison Arrow
 Api:RegisterPerk("Perk_JuDuJian", {
     id = "Perk_JuDuJian",
     display_name = "Poison Arrow",
     description = "When " .. TAG_missile_jian .. " hits an enemy, deal 5 damage per second to the enemy for 3 seconds",
-    flavor_text = "Blood seals the throat",
+    flavor_text = "Lethal on contact",
     icon = DCEI.Texture("Perk_JuDuJian"),
     perk_type = "perk",
     rarity = "rare",
     behavior = {
-        description = "Poison damage",
+        description = "Poison Damage",
         buff_bar_icon = DCEI.Texture("Perk_JuDuJian"),
         modify_attributes = {
             health_per_second = -5,
@@ -1262,18 +1286,18 @@ Api:RegisterPerk("Perk_JuDuJian", {
         combat_unit.Attack:RegisterOnMissileImpactCallback(name, function(level, attack_data, criminal, victim)
             if attack_data.missile_id == "Missile_Jian" then
                 for i = 1, level do
-                    -- Apply damage over time effect to the enemy
+                    -- Apply a damage-over-time effect to the enemy
                     Api.PerkBehaviorSystem:ApplyPerkBehaviorToSelf(victim, name)
                 end
             end
         end)
     end)
---Healing Arrow
+-- Healing Arrow
 Api:RegisterPerk("Perk_ZhiLiaoJian", {
     id = "Perk_ZhiLiaoJian",
     display_name = "Healing Arrow",
-    description = "When " .. TAG_missile_jian .. " hits an enemy, restore " .. "<color=#47b05d>".."5</color>" .. " HP to self",
-    flavor_text = "The arrowhead is coated with healing potion, can hurt enemies and heal yourself",
+    description = "When " .. TAG_missile_jian .. " hits an enemy, restore " .. "<color=#47b05d>".."5</color>" .. " health to yourself",
+    flavor_text = "The arrowhead is coated with a healing potion; it can both harm enemies and heal yourself",
     icon = DCEI.Texture("Perk_ZhiLiaoJian"),
     perk_type = "perk",
     rarity = "common",
@@ -1282,18 +1306,18 @@ Api:RegisterPerk("Perk_ZhiLiaoJian", {
     combat_unit.Attack:RegisterOnMissileImpactCallback(name, function(level, attack_data, criminal, victim)
         if attack_data.missile_id == "Missile_Jian" then
             for i = 1, level do
-                -- Restore 10 HP to self
+                -- Restore 10 health to yourself
                 combat_unit:ModifyCurrentHealth(5)
             end
         end
     end)
     end)
---Power Arrow
+-- Power Arrow
 Api:RegisterPerk("Perk_JianDamage", {
     id = "Perk_JianDamage",
     display_name = "Power Arrow",
-    description = "When " .. TAG_missile_jian .. " hits an enemy, deal an extra " .. "<color=#47b05d>".."20</color>" .. " damage",
-    flavor_text = "Never misses, extremely strong penetration",
+    description = "When " .. TAG_missile_jian .. " hits an enemy, deal an additional " .. "<color=#47b05d>".."20</color>" .. " damage",
+    flavor_text = "Every arrow hits its mark, with extremely strong penetration",
     icon = DCEI.Texture("Perk_JianDamage"),
     perk_type = "perk",
     rarity = "epic",
@@ -1307,11 +1331,11 @@ Api:RegisterPerk("Perk_JianDamage", {
         end
     end)
 end)
---Daedalus
+-- Daedalus
 Api:RegisterPerk("Perk_UltimateArrowRain", {
     id = "Perk_UltimateArrowRain",
     display_name = "Daedalus",
-    description = "When releasing ultimate, fire an extra " .. "<color=#47b05d>".."5</color>" .. " ".. TAG_missile_jian,
+    description = "When releasing an ultimate, fire an additional " .. "<color=#47b05d>".."5</color>" .. " ".. TAG_missile_jian,
     flavor_text = "Arrows fall like rain, unstoppable",
     icon = DCEI.Texture("Perk_UltimateArrowRain"),
     perk_type = "perk",
@@ -1327,19 +1351,19 @@ Api:RegisterPerk("Perk_UltimateArrowRain", {
     end)
 end)
 
---Crossbow Upgrade
+-- Crossbow Arrow Upgrade
 Api:RegisterPerk("Perk_NuJian", {
     id = "Perk_NuJian",
-    display_name = "Crossbow Upgrade",
-    description = "When " .. TAG_missile_gongjian .. " hits, fire an extra two " .. TAG_missile_jian,
-    flavor_text = "One arrow three birds, pierce a willow at a hundred paces",
+    display_name = "Crossbow Arrow Upgrade",
+    description = "When " .. TAG_missile_gongjian .. " hits, fire two additional " .. TAG_missile_jian,
+    flavor_text = "One arrow for three birds, piercing a willow leaf from a hundred paces",
     icon = DCEI.Texture("Missile_Nu"),
     perk_type = "perk",
     rarity = "legendary",
 }, function(combat_unit)
     local name = "Perk_NuJian"
     combat_unit.Attack:RegisterOnMissileImpactCallback(name, function(level, attack_data, criminal, victim)
-        -- Check if the hit bullet ID is "GongJian"
+        -- Check if the hit bullet ID is "bow and arrow"
         if attack_data.missile_id == "Missile_GongJian" then
             -- Fire the corresponding number of arrows based on perk level
             for i = 1, level * 2 do
@@ -1348,11 +1372,11 @@ Api:RegisterPerk("Perk_NuJian", {
         end
     end)
 end)
---Error Block
+-- Error Block
 Api:RegisterPerk("Perk_RandomHidden", {
     id = "Perk_RandomHidden",
     display_name = "��䶴䶶!#�䶶*&**",
-    description = "At combat start???@$%??@!!!",
+    description = "At the start of combat???@$%??@!!!",
     flavor_text = "Unknown error, unknown err*?!@@?**....",
     icon = DCEI.Texture("Perk_RandomHidden"),
     perk_type = "perk",
@@ -1360,7 +1384,7 @@ Api:RegisterPerk("Perk_RandomHidden", {
 }, function(combat_unit)
     local name = "Perk_RandomHidden"
     combat_unit:RegisterOnBeforeCombatStartCallback(name, function(level)
-        -- Define hidden missile list
+        -- Define hidden bullet list
         local hidden_missiles = {
             "tieding",
             "furou", 
@@ -1369,10 +1393,10 @@ Api:RegisterPerk("Perk_RandomHidden", {
             "missile_jinding"
         }
         
-        -- Determine the number of bullets obtained based on perk level
+        -- Determine the number of bullets gained based on perk level
         local bullet_count = 3 * level
         
-        -- Randomly obtain bullets
+        -- Randomly gain bullets
         for i = 1, bullet_count do
             local random_index = math.random(1, #hidden_missiles)
             local selected_missile = hidden_missiles[random_index]
@@ -1380,7 +1404,7 @@ Api:RegisterPerk("Perk_RandomHidden", {
             -- Get current magazine size
             local deck_size = #combat_unit.Attack:GetEmojiDeck()
             
-            -- Permanently add bullet
+            -- Permanently add bullets
             combat_unit.Attack:AddEmojiToDeck(selected_missile, 1)
             combat_unit:PlayAwardEmojiAnimation(selected_missile, 1)
 
@@ -1390,24 +1414,45 @@ Api:RegisterPerk("Perk_RandomHidden", {
         combat_unit:UpdateEmojiMagazineUi()
     end)
 end)
--- Simple Piston Worm
+
+-- Piston Worm
 Api:RegisterPerk("Perk_HongShi", {
     id = "Perk_HongShi",
     display_name = "Simple Piston Worm",
-    description = "When your " .. TAG_perk_hongshi .. " hits an enemy, randomly select one from the extra effects of " .. TAG_perk_shiwu .. TAG_perk_gongju .. TAG_perk_shengwu .. TAG_relic_zuanshi
-    .. " and " .. "<color=#47b05d>".."trigger it twice</color>",
-    flavor_text = "Redstone is the core of technology, and also the art of explosion",
+    description = "When your " .. TAG_perk_hongshi .. " hits an enemy, randomly from " .. TAG_perk_shiwu .. TAG_perk_gongju .. TAG_perk_shengwu .. TAG_relic_zuanshi .. " extra effects, randomly choose one to " .. "trigger",
+    flavor_text = "Redstone is the core of technology and the art of explosion",
     icon = DCEI.Texture("Perk_HongShi"),
     perk_type = "perk",
     rarity = "rare",
+    behavior = {
+        description = "All attributes surge",
+        buff_bar_icon = DCEI.Texture("Perk_HongShi"),
+        modify_attributes = {
+            attack = 1,
+            energy_maximum = 1,
+            block = 1,
+            retaliate = 1,
+            income = 1,
+            health_per_second = 1,
+            energy_per_second = 1,
+            attack_speed = 0.01,
+            crit_chance = 0.01,
+            dodge_chance = 0.01,
+            luck = 0.01,
+            thorn_block = 0.01,
+            ultimate_damage = 0.01,
+        },
+        duration = 3,
+        is_positive = true,
+    },
 }, function(combat_unit)
     local name = "Perk_HongShi"
     combat_unit.Attack:RegisterOnMissileImpactCallback(name, function(level, attack_data, criminal, victim)
         -- Check if it is a TNT bullet hit
         if attack_data.missile_id == "Missile_TNT" then
             for i = 1, level do
-                -- Randomly select a number between 1-3
-                local random_effect = math.random(1, 3)
+                -- Randomly choose a number between 1 and 4
+                local random_effect = math.random(1, 4)
                 
                 if random_effect == 1 then
                     for i = 1, level * 2 do
@@ -1418,7 +1463,7 @@ Api:RegisterPerk("Perk_HongShi", {
                     criminal:ModifyAttribute("energy_per_second", 1, false)
                     end
                 elseif random_effect == 2 then
-                    -- Effect 2: Consume 1 satiety and gain 1 HP regen
+                    -- Effect 2: Consume 1 satiety and gain 1 health regen
                     local current_baoshidu = criminal:GetBoundedAttribute("JS_BaoShi")
                     if current_baoshidu > 0 then
                         for i = 1, level * 2 do
@@ -1426,41 +1471,53 @@ Api:RegisterPerk("Perk_HongShi", {
                         criminal:ModifyAttribute("health_per_second", 1, false)
                         end
                     end
-                    
-                else
+                elseif random_effect == 3 then
                     for i = 1, level * 2 do
                     -- Effect 3: Gain 1% attack speed
                     criminal:ModifyAttribute("attack_speed", 0.01, false)
+                    end
+                else
+                    for i = 1, level  do
+                    -- Effect 4: Increase all own attributes by 1 or 1% for 3 seconds
+                    Api.PerkBehaviorSystem:ApplyPerkBehaviorToSelf(criminal, name)
                     end
                 end
             end
         end
     end)
 end)
---Black Powder
-Api:RegisterPerk("Perk_TNT_Power", {
-    id = "Perk_TNT_Power",
+
+-- Black Powder
+Api:RegisterPerk("Perk_TNT_Attack", {
+    id = "Perk_TNT_Attack",
     display_name = "Black Powder",
-    description = "When " .. TAG_missile_tnt .. " hits, grant you an extra " .. "<color=#47b05d>".."1</color>"..Api.GameMechanicTags.TAG.attack,
-    flavor_text = "The power of explosion!",
+    description = "When " .. TAG_missile_tnt .. " hits, additionally grant you " .. "<color=#47b05d>".."1</color>"..Api.GameMechanicTags.TAG.attack,
+    flavor_text = "One part saltpeter, two parts sulfur, three parts charcoal!",
     icon = DCEI.Texture("Perk_TNT_Power"),
     perk_type = "perk",
     rarity = "rare",
+    behavior = {
+            description = "Flammable and explosive",
+            buff_bar_icon = DCEI.Texture("Perk_TNT_Power"),
+            duration = 999,
+            is_positive = true,
+            },
 }, function(combat_unit)
-    local name = "Perk_TNT_Power"
+    local name = "Perk_TNT_Attack"
     combat_unit.Attack:RegisterOnMissileImpactCallback(name, function(level, attack_data, criminal, victim)
         if attack_data.missile_id == "Missile_TNT" then
             for i = 1, level do
+                Api.PerkBehaviorSystem:ApplyPerkBehaviorToSelf(criminal, name)
                 combat_unit:ModifyAttribute("attack", 1, false)
             end
         end
     end)
 end)
---Firecracker
+-- Double-Bang Firecracker
 Api:RegisterPerk("Perk_ErTiJiao", {
     id = "Perk_ErTiJiao",
     display_name = "Firecracker",
-    description = "When " .. TAG_missile_tnt .. " hits, " .. "<color=#47b05d>".."50%</color>" .. " chance to fire another " .. TAG_missile_tnt,
+    description = "When " .. TAG_missile_tnt .. " hits, there is a " .. "<color=#47b05d>".."50%</color>" .. " chance to fire another " .. TAG_missile_tnt,
     flavor_text = "One bang after another, every bang is loud!",
     icon = DCEI.Texture("Perk_ErTiJiao"),
     perk_type = "perk",
@@ -1469,28 +1526,28 @@ Api:RegisterPerk("Perk_ErTiJiao", {
     local name = "Perk_ErTiJiao"
     combat_unit.Attack:RegisterOnMissileImpactCallback(name, function(level, attack_data, criminal, victim)
         if attack_data.missile_id == "Missile_TNT" then
-            -- Generate a random number between 0-1, if less than 0.5 trigger the effect
+            -- Generate a random number between 0 and 1; if less than 0.5, trigger the effect
             local random = math.random(0, 1)
             if random < 0.5 then
                 for i = 1, level do
-                    combat_unit.Attack:NewMissileAttack(victim, "Missile_TNT")
+                    combat_unit.Attack:NewMissileAttack(victim, "Missile_TNT1")
                 end
             end
         end
     end)
 end)
 
---Fire Support
+-- Fire Support
 Api:RegisterPerk("Relic_CustomSummon", {
     id = "Relic_CustomSummon",
     display_name = "Fire Support",
-    description = "At combat start, summon 1 creeper to assist in battle",
+    description = "Summon 1 Creeper at the start of combat to assist in battle",
     rarity = "legendary",
     icon = DCEI.Texture("Relic_CustomSummon"),
     perk_type = "perk",
-    flavor_text = "As long as the gunpowder is there, who cares who we fight for",
+    flavor_text = "As long as the gunpowder is there, who cares who you fight for",
      modify_attributes = {
-        summon_speed = 1.0,  -- Add this line, set initial attack speed to 1.0
+        summon_speed = 0.5,  -- Add this line, set initial attack speed to 1.0
     },
 }, function(combat_unit)
     local name = "Relic_CustomSummon"
@@ -1514,7 +1571,7 @@ Api:RegisterPerk("Relic_CustomSummon", {
         Api:RunTimer(function()
             local attack = {
                 attack_id = "attack_star",
-                damage = combat_unit:GetBoundedAttribute("attack") * 1.2,
+                damage = combat_unit:GetBoundedAttribute("attack") * 1.5,
                 attack_speed_key = "summon_speed",
                 hit_sound = DCEI.Sound("smh_keg_ultimate_impact"),
                 cache_key = "summons_data",
@@ -1524,7 +1581,7 @@ Api:RegisterPerk("Relic_CustomSummon", {
         end, spawn_time)
     end)
 end)
--- Bullet fired by summon
+-- Bullet fired by the summon
 Api:RegisterMissile("attack_star", {
     id = "attack_star",
     display_name = "Star",
@@ -1539,19 +1596,19 @@ Api:RegisterMissile("attack_star", {
 -- Custom attribute, used to set summon attack speed
 Api:RegisterAttribute({
     id = "summon_speed",
-    display_name = "Creeper Squad Member Count:",
-    description = "The number of creepers you currently have hired",
+    display_name = "Creeper Squad",
+    description = "Creeper fires a TNT every 0.5 seconds that deals 1.5 times "..Api.GameMechanicTags.TAG.attack.." damage",
     icon = DCEI.Texture("Relic_CustomSummon"),
     display_type = Api.DisplayType.Float,
     is_neutral = true,
-    flavor_text = "Hiss~ hiss hiss",
+    flavor_text = "Hiss~ hiss",
 })
 
--- Wild Hunt Guide
+-- Wild Hunting Guide
 Api:RegisterPerk("Perk_FoodBioHit", {
     id = "Perk_FoodBioHit",
-    display_name = "Wild Hunt Guide",
-    description = "Whenever your " .. TAG_perk_shiwu .. " or " .. TAG_perk_shengwu .. " bullets hit an enemy, after combat ends gain ".."<color=#47b05d>".."2x max health equal to the sum of hit counts</color>",
+    display_name = "Wild Hunting Guide",
+    description = "Whenever your " .. TAG_perk_shiwu .. " or " .. TAG_perk_shengwu .. " bullets hit an enemy, after combat ends gain an amount equal to the sum of hit counts as ".."<color=#47b05d>".."2 times maximum health</color>",
     flavor_text = "Abundant food and prey make you stronger",
     icon = DCEI.Texture("Perk_FoodBioHit"),
     perk_type = "perk",
@@ -1590,11 +1647,11 @@ end)
 Api:RegisterPerk("Perk_EnergyOverload", {
     id = "Perk_EnergyOverload",
     display_name = "Pre-Battle Mobilization",
-    description = "Gain ".."<color=#47b05d>".."100</color>"..Api.GameMechanicTags.TAG.energy_regen.." for the first 5 seconds after combat starts, then gain ".."<color=red>".."-125</color>"..Api.GameMechanicTags.TAG.energy_regen,
+    description = "In the first 5 seconds after combat starts, gain ".."<color=#47b05d>".."100</color>"..Api.GameMechanicTags.TAG.energy_regen..", then gain ".."<color=red>".."-125</color>"..Api.GameMechanicTags.TAG.energy_regen,
     icon = DCEI.Texture("Perk_EnergyOverload"),
     perk_type = "perk",
     rarity = "common",
-    flavor_text = "Overloaded energy can bring power, and may also lead to destruction",
+    flavor_text = "Overloaded energy can bring power, but may also lead to destruction",
     behavior = {
         description = "Energy Overload",
         buff_bar_icon = DCEI.Texture("Perk_EnergyOverload"),
@@ -1632,6 +1689,56 @@ Api:RegisterPerk("Perk_EnergyOverload", {
         has_applied_debuff = false
     end)
 end)
+-- Diamond Pickaxe
+Api:RegisterPerk("Perk_Zuanshigao", {
+    id = "Perk_Zuanshigao",
+    display_name = "Diamond Pickaxe",
+    description = "When your " .. TAG_relic_zuanshi .. " hits an enemy, all your attributes increase by ".."<color=#47b05d>".."1</color>".." or ".."<color=#47b05d>".."1%</color>".." for 3 seconds",
+    flavor_text = "Actually, it could have been artificially made long ago...",
+    icon = DCEI.Texture("Perk_Zuanshigao"),
+    perk_type = "perk",
+    rarity = "legendary",
+    behavior = {
+        description = "All attributes surge",
+        buff_bar_icon = DCEI.Texture("Perk_Zuanshigao"),
+        modify_attributes = {
+            attack = 1,
+            energy_maximum = 1,
+            block = 1,
+            retaliate = 1,
+            income = 1,
+            health_per_second = 1,
+            energy_per_second = 1,
+            attack_speed = 0.01,
+            crit_chance = 0.01,
+            dodge_chance = 0.01,
+            luck = 0.01,
+            thorn_block = 0.01,
+            ultimate_damage = 0.01,
+ 
+        },
+        duration = 3,
+        is_positive = true,
+    },
+}, function(combat_unit)
+    local name = "Perk_Zuanshigao"
+    combat_unit.Attack:RegisterOnMissileImpactCallback(name, function(level, attack_data, criminal, victim)
+        -- Check if it is a specified bullet hit; here it defaults to Spider Eye, you can change the bullet ID as needed
+        if attack_data.missile_id == "changpian" or attack_data.missile_id == "Missile_YanJing" then
+            for i = 1, level do
+                -- Apply the attribute buff defined in behavior to yourself
+                Api.PerkBehaviorSystem:ApplyPerkBehaviorToSelf(criminal, name)
+            end
+        end
+    end)
+end)
+
+
+
+
+
+
+
 
 
 
@@ -1640,16 +1747,16 @@ end)
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---Ammo Supply Pack
---Spider Eye Supply Pack
+-- Ammo Supply Pack
+-- Spider Eye Supply Pack
 Api:RegisterPerk("Perk_Power_ZhuYan", {
         id = "Perk_Power_ZhuYan",
         display_name = "Spider Eye Stew",
-        description = "Gain "..TAG_missile_zhizhuyan.."\n".."On hit deal ".."<color=#47b05d>".."60%</color>"..Api.GameMechanicTags.TAG.health_regen.." damage, and also grant ".."<color=#47b05d>".."1</color>"..Api.GameMechanicTags.TAG.health_regen,
+        description = "Gain "..TAG_missile_zhizhuyan.."\n".."On hit, deal ".."<color=#47b05d>".."60%</color>"..Api.GameMechanicTags.TAG.health_regen.." damage, and also provide ".."<color=#47b05d>".."1</color>"..Api.GameMechanicTags.TAG.health_regen,
         icon = DCEI.Texture("Missile_ZhuYan"),
         perk_type = "missile",
         rarity = "common",
-        flavor_text = "I usually just throw them away as trash".."\n".." {===="..TAG_perk_shiwu..TAG_relic_zuanshi.."====}",
+        flavor_text = "Usually I just throw them away as trash".."\n".." {===="..TAG_perk_shiwu.."====}",
         attacks = {
             Missile_ZhuYan = 1,
             },
@@ -1670,11 +1777,11 @@ Api:RegisterPerk("Perk_Power_ZhuYan", {
                 end
             end)
             end)
---Dragon's Breath Supply Pack
+-- Dragon's Breath Supply Pack
 Api:RegisterPerk("Perk_Power_LongXi", {
         id = "Perk_Power_LongXi",
         display_name = "Bottled Dragon's Breath",
-        description = "Gain a bottle of dragon's breath",
+        description = "Gain a bottle of Dragon's Breath",
         icon = DCEI.Texture("Missile_LongXi"),
         perk_type = "missile",
         rarity = "legendary",
@@ -1683,11 +1790,11 @@ Api:RegisterPerk("Perk_Power_LongXi", {
             Missile_LongXi = 1,
             },
         })
---TNT Supply Pack
+-- TNT Supply Pack
 Api:RegisterPerk("Perk_Power_TNT", {
         id = "Perk_Power_TNT",
         display_name = "Bundled Explosives",
-        description = "Gain "..TAG_missile_tnt.."\nDeals ".."<color=#47b05d>".."120%</color>".." attack damage",
+        description = "Gain "..TAG_missile_tnt.."\nDeal ".."<color=#47b05d>".."120%</color>".." attack damage",
         icon = DCEI.Texture("Missile_TNT"),
         perk_type = "missile",
         rarity = "epic",
@@ -1696,15 +1803,15 @@ Api:RegisterPerk("Perk_Power_TNT", {
             Missile_TNT = 1,
         },
         }) 
---Bread Supply Pack
+-- Bread Supply Pack
 Api:RegisterPerk("Perk_Power_MianBao", {
         id = "Perk_Power_MianBao",
         display_name = "Whole Wheat Bread",
-        description = "Gain "..TAG_perk_mianbao.."\n".."Deals 1 damage, on hit gain ".."<color=#47b05d>".."5</color>"..Api.GameMechanicTags.TAG.energy_regen,
+        description = "Gain "..TAG_perk_mianbao.."\n".."Deal 1 damage, on hit gain ".."<color=#47b05d>".."5</color>"..Api.GameMechanicTags.TAG.energy_regen,
         icon = DCEI.Texture("Missile_MianBao"),
         perk_type = "perk",
         rarity = "common",
-        flavor_text = "Economical, delicious and cheap, can defend and restore energy".."\n".." {====="..TAG_perk_shiwu.."=====}", 
+        flavor_text = "Economical and practical, tasty and inexpensive; it can both defend you and restore mana".."\n".." {====="..TAG_perk_shiwu.."=====}", 
         attacks = {
             Missile_MianBao = 1,
             }, 
@@ -1727,7 +1834,7 @@ Api:RegisterPerk("Perk_Power_MianBao", {
             end
         end)
         end)
---Chicken Supply Pack
+-- Chicken Supply Pack
 Api:RegisterPerk("Perk_Power_Ji", {
         id = "Perk_Power_Ji",
         display_name = "Egg-Laying Rooster",
@@ -1748,7 +1855,7 @@ Api:RegisterPerk("Perk_Power_Ji", {
         duration = 999,
         is_positive = true,
         },
-        -------------------------------------Below is the specific function implementation
+        ------------------------------------- Specific function implementation below
         },function (combat_unit)
         local name = "Perk_Power_Ji"
         combat_unit.Attack:RegisterOnMissileImpactCallback(name, function(level, attack_data, caster, target)
@@ -1785,15 +1892,15 @@ Api:RegisterPerk("Perk_Power_Ji", {
         end     
         end)
         end)
---Pig Supply Pack
+-- Pig Supply Pack
 Api:RegisterPerk("Perk_Power_Zhu", {
         id = "Perk_Power_Zhu",
         display_name = "George",
-        description = "Gain "..TAG_missile_zhu.."\n".."<color=#47b05d>".."Your </color>"..TAG_shuxing_baoshidu.."<color=#47b05d>".." no longer resets to zero after combat ends  </color>"..TAG_shuxing_baoshidu.."<color=#47b05d>".." satiety effects have a chance to trigger twice</color>",
+        description = "Gain "..TAG_missile_zhu.."\n".."<color=#47b05d>".."Your </color>"..TAG_shuxing_baoshidu.."<color=#47b05d>".." no longer resets to zero after combat ends  </color>"..TAG_shuxing_baoshidu.."<color=#47b05d>".." satiety effect has a chance to trigger twice</color>",
         icon = DCEI.Texture("Missile_Zhu"),
         perk_type = "missile",
         rarity = "epic",
-        flavor_text = "Did you know, pigs were once trained to play video games".."\n".." {====="..TAG_perk_shengwu.."=====}",
+        flavor_text = "Did you know? Pigs were once trained to play video games".."\n".." {====="..TAG_perk_shengwu.."=====}",
         attacks = {
             Missile_Zhu = 1,
             }, 
@@ -1806,7 +1913,7 @@ Api:RegisterPerk("Perk_Power_Zhu", {
         duration = 999,
         is_positive = true,
         },
-        -------------------------------------Below is the specific function implementation
+        ------------------------------------- Specific function implementation below
         },function (combat_unit)
         local name = "Perk_Power_Zhu"
         combat_unit.Attack:RegisterOnMissileImpactCallback(name, function(level, attack_data, caster, target)
@@ -1841,7 +1948,124 @@ Api:RegisterPerk("Perk_Power_Zhu", {
             end 
         end   
         end)
-        end)
+        end)  
+-- Blaze Charge Supply Pack
+Api:RegisterPerk("Perk_Power_LieYanDan", {
+    id = "Perk_Power_LieYanDan",
+    display_name = "Fire-Binding Ritual ",
+    description = "Gain "..TAG_missile_lieyandan.."\nDeal 30 damage, for every ".."<color=#47b05d>".."100</color>"..Api.GameMechanicTags.TAG.energy_regen.." deal an extra ".."<color=#47b05d>".."10</color>".." damage",
+    icon = DCEI.Texture("Missile_lieyandan"),
+    perk_type = "missile",
+    rarity = "epic", -- Rarity can be adjusted as needed
+    flavor_text = "The more energy you have, the fiercer the strike",
+    attacks = {
+        Missile_lieyandan = 1,
+    },
+})
+-- Eye of Ender Supply Pack
+Api:RegisterPerk("Perk_Power_YanJing", {
+    id = "Perk_Power_YanJing",
+    display_name = "Gaze into the Abyss",
+    description = "Gain "..TAG_relic_end_eye.."\nDeal damage equal to ".. "<color=#47b05d>".."300 times</color>" ..Api.GameMechanicTags.TAG.dodge_chance..", every three hits, gain 1% dodge in this combat",
+    icon = DCEI.Texture("Missile_YanJing"),
+    perk_type = "missile",
+    rarity = "legendary",
+    flavor_text = "When you gaze into the abyss, the abyss also gazes into you".."\n".." {========="..TAG_relic_zuanshi.."=========}",
+    attacks = {
+        Missile_YanJing = 1,
+    },
+})
+-- Diamond Sword Supply Pack
+Api:RegisterPerk("Perk_Power_ZSJ", {
+    id = "Perk_Power_ZSJ",
+    display_name = "Sword Forging",
+    description = "Gain "..TAG_missile_zsj.."\nDeal damage equal to the sum of all your attributes",
+    icon = DCEI.Texture("Missile_ZSJ"),
+    perk_type = "missile",
+    rarity = "legendary",
+    flavor_text = "Once the strongest king in vanilla, one of MC's most famous icons".."\n".." {========="..TAG_perk_gongju.."=========}",
+    attacks = {
+        Missile_ZSJ = 1,
+    },
+})
+-- Grass Block Supply Pack
+Api:RegisterPerk("Perk_Power_caofangkuai", {
+    id = "Perk_Power_caofangkuai",
+    display_name = "Moving Blocks",
+    description = "Gain "..TAG_missile_caofangkuai.."\nDeal damage equal to 10% of the enemy's maximum health",
+    icon = DCEI.Texture("Missile_MaxHealthDmg"),
+    perk_type = "missile",
+    rarity = "legendary",
+    flavor_text = "Once the strongest king in vanilla, one of MC's most famous icons".."\n".." {========="..TAG_perk_gongju.."=========}",
+    attacks = {
+        Missile_MaxHealthDmg = 1,
+    },
+})
+-- Global Strike
+Api:RegisterPerk("Perk_Power_AllInOne", {
+    id = "Perk_Power_AllInOne",
+    display_name = "Global Strike",
+    description = "Gain one of each: "..TAG_missile_zhizhuyan..TAG_missile_tnt..TAG_missile_gongjian..TAG_missile_changpian..TAG_perk_mianbao..TAG_missile_caofangkuai..TAG_missile_furou..TAG_missile_jinli..TAG_relic_end_eye..TAG_missile_lieyandan,
+    icon = DCEI.Texture("Perk_Power_AllInOne"),
+    perk_type = "missile",
+    rarity = "legendary",
+    flavor_text = "The wandering trader's ultimate supply pack, satisfying all your firepower needs at once".."\n".." {========="..TAG_perk_hongshi.."=========}",
+    attacks = {
+        Missile_ZhuYan = 1,
+        Missile_TNT = 1,
+        Missile_GongJian = 1,
+        changpian = 1,
+        Missile_MianBao = 1,
+        Missile_MaxHealthDmg = 1,
+        furou = 1,
+        missile_jinding = 1,
+        Missile_YanJing = 1,
+        Missile_lieyandan = 1,
+    },
+})
+-- Immortal Body
+Api:RegisterPerk("Perk_ImmortalBelow200k", {
+    id = "Perk_ImmortalBelow200k",
+    display_name = "Immortal Body",
+    description = "When health is below ".."<color=red>".."200000</color>"..", immediately gain ".."<color=#47b05d>".."200000</color>".." maximum health, ".."<color=#47b05d>".."90%</color>".." dodge, and ".."<color=#47b05d>".."1000</color>".." points of ".. Api.GameMechanicTags.TAG.health_regen ..", lasting 5 seconds",
+    flavor_text = "At the brink of life and death, the dragon bloodline awakens, granting you brief absolute protection",
+    icon = DCEI.Texture("Perk_ImmortalBelow5000"),
+    perk_type = "perk",
+    rarity = "legendary",
+    behavior = {
+        description = "Immortal Body",
+        buff_bar_icon = DCEI.Texture("Perk_ImmortalBelow5000"),
+        modify_attributes = {
+            health_maximum = 200000,
+            dodge_chance = 0.9,
+            health_per_second = 1000,
+        },
+        duration = 5,
+        is_positive = true,
+    },
+}, function(combat_unit)
+    local name = "Perk_ImmortalBelow200k"
+    local has_triggered = false
+    
+    -- Changed to detect on bullet hit
+    combat_unit.Attack:RegisterOnMissileImpactCallback(name, function(level, attack_data, criminal, victim)
+        -- Check if current health is below 200000 and not yet triggered
+        if not has_triggered and combat_unit:GetCurrentHealth() < 200000 then
+            has_triggered = true
+            -- Apply the attribute buff defined in behavior to yourself
+            for i = 1, level do
+                Api.PerkBehaviorSystem:ApplyPerkBehaviorToSelf(combat_unit, name)
+            end
+        end
+    end)
+end)
+
+
+
+
+
+
+
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    
 
@@ -1849,13 +2073,13 @@ Api:RegisterPerk("Perk_Power_Zhu", {
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---New Missiles
---Spider Eye
+-- New Missiles
+-- Spider Eye
 Api:RegisterMissile("Missile_ZhuYan", {
         id = "Missile_ZhuYan",
         display_name = "Spider Eye",
-        tip = "On hit deal 60%"..Api.GameMechanicTags.TAG.health_regen.." damage, and also grant ".."<color=#47b05d>".."1</color>"..Api.GameMechanicTags.TAG.health_regen,
-        flavor_text = "Spider byproduct, trash, alchemy material, ammunition".."\n".." {========"..TAG_relic_zuanshi..TAG_perk_shiwu.."========}",
+        tip = "On hit, deal 60%"..Api.GameMechanicTags.TAG.health_regen.." damage, and also provide ".."<color=#47b05d>".."1</color>"..Api.GameMechanicTags.TAG.health_regen,
+        flavor_text = "Spider byproduct, trash, alchemy material, ammunition".."\n".." {========"..TAG_perk_shiwu.."========}",
         icon = DCEI.Texture("Missile_ZhuYan"),
         missile = DCEI.SimpleUnit("COMBAT Missile Zhi_Zhu"),
         sounds = {
@@ -1875,11 +2099,11 @@ Api:RegisterMissile("Missile_ZhuYan", {
         end)
         end)
 
---Dragon's Breath
+-- Dragon's Breath
 Api:RegisterMissile("Missile_LongXi", {
 		id = "Missile_LongXi",
 		display_name = "Dragon's Breath",
-        tip = "Not fired from the magazine, deals damage per second to the opponent equal to 25%" .. Api.GameMechanicTags.TAG.ultimate_damage,
+        tip = "Deal damage equal to 25%" .. Api.GameMechanicTags.TAG.ultimate_damage.." to the opponent",
         flavor_text = "Actually hand-bottled by the wandering trader".."\n".." {========="..TAG_relic_zuanshi.."=========}",
 		icon = DCEI.Texture("Missile_LongXi"),
 		missile = DCEI.SimpleUnit("COMBAT Missile Long Xi"),
@@ -1896,12 +2120,12 @@ Api:RegisterMissile("Missile_LongXi", {
         end
 	    })
 
---TNT
+-- TNT
 Api:RegisterMissile("Missile_TNT", {
         id = "Missile_TNT",
         display_name = "TNT",
-        tip = "Deals ".."<color=#47b05d>".."120%</color>"..Api.GameMechanicTags.TAG.attack.." damage",
-        flavor_text = "TNT can solve many problems, but not all of them".."\n".." {========="..TAG_perk_hongshi.."=========}",
+        tip = "Deal ".."<color=#47b05d>".."120%</color>"..Api.GameMechanicTags.TAG.attack.." damage",
+        flavor_text = "TNT can solve many problems, but not all".."\n".." {========="..TAG_perk_hongshi.."=========}",
         icon = DCEI.Texture("Missile_TNT"),
         missile = DCEI.SimpleUnit("COMBAT Missile Tnts"),
         sounds = {
@@ -1911,12 +2135,27 @@ Api:RegisterMissile("Missile_TNT", {
             return 1.2 * caster:GetBoundedAttribute("attack")
         end
         })
+-- String of Firecrackers
+Api:RegisterMissile("Missile_TNT1", {
+        id = "Missile_TNT1",
+        display_name = "TNT",
+        tip = "Deal ".."<color=#47b05d>".."120%</color>"..Api.GameMechanicTags.TAG.attack.." damage",
+        flavor_text = "TNT can solve many problems, but not all".."\n".." {========="..TAG_perk_hongshi.."=========}",
+        icon = DCEI.Texture("Missile_TNT"),
+        missile = DCEI.SimpleUnit("COMBAT Missile Tnts1"),
+        sounds = {
+            DCEI.Sound("tnt")
+        },
+        damage = function(attack_data, caster)
+            return 1.2 * caster:GetBoundedAttribute("attack")
+        end
+        })
     
---Zombie Pigman
+-- Zombie Pigman
 Api:RegisterMissile("Missile_JSZR", {
         id = "Missile_JSZR",
         display_name = "Zombie Pigman",
-        tip = "Deals 60 fixed damage",
+        tip = "Deal 60 fixed damage",
         flavor_text = "Oink, oink oink? Oink oink, oink!".."\n".." {========="..TAG_perk_shengwu.."=========}",
         icon = DCEI.Texture("Missile_JSZR"),
         missile = DCEI.SimpleUnit("COMBAT Missile Jiang_Zhuren"),
@@ -1928,12 +2167,12 @@ Api:RegisterMissile("Missile_JSZR", {
             end
         })
 
---Bread
+-- Bread
 Api:RegisterMissile("Missile_MianBao", {
         id = "Missile_MianBao",
         display_name = "Bread",
-        tip = "Deals 1 damage, on hit gain ".."<color=#47b05d>".."5</color>"..Api.GameMechanicTags.TAG.energy_regen,
-        flavor_text = "Bread from France, can restore energy and also attack".."\n".." {========="..TAG_perk_shiwu.."=========}",
+        tip = "Deal 1 damage, on hit gain ".."<color=#47b05d>".."5</color>"..Api.GameMechanicTags.TAG.energy_regen,
+        flavor_text = "Bread from France, can both restore energy and attack".."\n".." {========="..TAG_perk_shiwu.."=========}",
         icon = DCEI.Texture("Missile_MianBao"),
         missile = DCEI.SimpleUnit("COMBAT Missile Mian_Bao"),
         sounds = {
@@ -1951,12 +2190,12 @@ Api:RegisterMissile("Missile_MianBao", {
             end
         end)
         end)
---Beef Patty
+-- Beef
 Api:RegisterMissile("Missile_NiuRou", {
             id = "Missile_NiuRou",
             display_name = "Beef Patty",
-            tip = "Deals 1 damage, on hit gain ".."<color=#47b05d>".."5</color>"..Api.GameMechanicTags.TAG.energy_regen,
-            flavor_text = "So fresh it can't be fresher, as if it's still twitching!".."\n".." {========="..TAG_perk_shiwu.."=========}",
+            tip = "Deal 1 damage, on hit gain ".."<color=#47b05d>".."5</color>"..Api.GameMechanicTags.TAG.energy_regen,
+            flavor_text = "So fresh it seems to still be twitching!".."\n".." {========="..TAG_perk_shiwu.."=========}",
             icon = DCEI.Texture("Missile_NiuRou"),
             missile = DCEI.SimpleUnit("COMBAT Missile Niurou"),
             sounds = {
@@ -1974,12 +2213,12 @@ Api:RegisterMissile("Missile_NiuRou", {
                 end
             end)
             end)
---Cabbage
+-- Cabbage
 Api:RegisterMissile("Missile_JXC", {
                 id = "Missile_JXC",
                 display_name = "Cabbage",
-                tip = "Deals 1 damage, on hit gain ".."<color=#47b05d>".."5</color>"..Api.GameMechanicTags.TAG.energy_regen,
-                flavor_text = "The Cabbage-Pult does a great job smashing zombies with cabbages, it makes a living from this, after all, it's good at it. It's just that first it doesn't understand how the zombies climbed onto the roof.".."\n".." {========="..TAG_perk_shiwu.."=========}",
+                tip = "Deal 1 damage, on hit gain ".."<color=#47b05d>".."5</color>"..Api.GameMechanicTags.TAG.energy_regen,
+                flavor_text = "The Cabbage-pult does well smashing zombies with cabbages, it makes money from this, after all, it's good at it. Only first he doesn't understand how the zombies climbed onto the roof.".."\n".." {========="..TAG_perk_shiwu.."=========}",
                 icon = DCEI.Texture("Missile_JXC"),
                 missile = DCEI.SimpleUnit("COMBAT Missile Juanxincai"),
                 sounds = {
@@ -1998,11 +2237,11 @@ Api:RegisterMissile("Missile_JXC", {
                 end)
                 end)
 
---Diamond Sword
+-- Diamond Sword
 Api:RegisterMissile("Missile_ZSJ", {
         id = "Missile_ZSJ",
         display_name = "Diamond Sword",
-        tip = "Deals damage equal to the sum of all your attributes".."\n".." {========="..TAG_perk_gongju.."========}",
+        tip = "Deal damage equal to the sum of all your attributes".."\n".." {========="..TAG_perk_gongju.."========}",
         flavor_text = "Take my jump slash",
         icon = DCEI.Texture("Missile_ZSJ"),
         missile = DCEI.SimpleUnit("COMBAT Missile Zuan_Shijian"),
@@ -2019,11 +2258,12 @@ Api:RegisterMissile("Missile_ZSJ", {
             end
         })
 
---Cobweb
+-- Spider Web
 Api:RegisterMissile("Missile_ZhuWang", {
         id = "Missile_ZhuWang",
-        display_name = "Cobweb",
-        tip = "Deals 30%"..Api.GameMechanicTags.TAG.health_regen.." damage",
+        display_name = "Spider Web",
+        description = "Deal 30%"..Api.GameMechanicTags.TAG.health_regen.." damage",
+        tip = "On hit, reduce attack speed by 1%",
         flavor_text = "So sticky, if only I had a sword".."\n".." {========="..TAG_perk_hongshi.."=========}",
         icon = DCEI.Texture("Missile_ZhuWang"),
         missile = DCEI.SimpleUnit("COMBAT Missile Zhu_Wang"),
@@ -2035,12 +2275,12 @@ Api:RegisterMissile("Missile_ZhuWang", {
          end
         })
 
---Eye of Ender
+-- Eye of Ender
 Api:RegisterMissile("Missile_YanJing", {
         id = "Missile_YanJing",
         display_name = "Eye of Ender",
-        tip = "Deals 300x "..Api.GameMechanicTags.TAG.dodge_chance.." damage, every three hits gain 1% dodge in this battle",
-        flavor_text = "The solitary will guide your direction, protect you from intrusion, head to the End".."\n".." {========="..TAG_perk_hongshi.."=========}",
+        tip = "Deal 300 times "..Api.GameMechanicTags.TAG.dodge_chance.." damage, every three hits gain 1% dodge in this combat",
+        flavor_text = "I will guide your direction, protect you from disturbance, and lead you to the End".."\n".." {========="..TAG_relic_zuanshi.."=========}",
         icon = DCEI.Texture("Missile_YanJing"),
         missile = DCEI.SimpleUnit("COMBAT Missile End_Eye"),
         sounds = {
@@ -2064,11 +2304,11 @@ Api:RegisterMissile("Missile_YanJing", {
             end
             end)
             end)
---Chicken
+-- Chicken
 Api:RegisterMissile("Missile_Ji", {
 		id = "Missile_Ji",
 		display_name = "Chicken",
-        tip = "Deals no damage, every 150 times your "..TAG_perk_shiwu.." hits an enemy, randomly hatch an egg (does not stack)",
+        tip = "Deals no damage. Every time your "..TAG_perk_shiwu.." hits an enemy 300 times, randomly hatch an egg (does not stack)",
         flavor_text = "Cluck cluck cluck, still want a golden egg, cluck cluck".."\n".." {========="..TAG_perk_shengwu.."=========}",
 		icon = DCEI.Texture("Missile_Ji"),
 		missile = DCEI.SimpleUnit("COMBAT Missile Ji"),
@@ -2079,13 +2319,13 @@ Api:RegisterMissile("Missile_Ji", {
             return 0         
         end
 	    })
---Pig
+-- Pig
 Api:RegisterMissile("Missile_Zhu", {
         id = "Missile_Zhu",
         display_name = "Pig",
-        tip = "Deals 10 damage, on hit randomly fire a "..TAG_missile_tnt
+        tip = "Deal 10 damage. On hitting an enemy, randomly fire one "..TAG_missile_tnt
         .." or "..TAG_missile_huluobo,
-        flavor_text = "\"My cousin can make big explosions\", George said while munching on a carrot".."\n".." {========="..TAG_perk_shengwu.."=========}",
+        flavor_text = "\"My cousin can make big explosions,\" George said while chewing a carrot".."\n".." {========="..TAG_perk_shengwu.."=========}",
         icon = DCEI.Texture("Missile_Zhu"),
         missile = DCEI.SimpleUnit("COMBAT Missile Zhu"),
         sounds = {
@@ -2100,12 +2340,12 @@ Api:RegisterMissile("Missile_Zhu", {
         
             end)
         end)
---Turtle
+-- Turtle
 Api:RegisterMissile("Missile_HaiGui", {
     id = "Missile_HaiGui",
     display_name = "Turtle",
-    tip = "Deals 30 damage, on hit gain ".."<color=#47b05d>".."1</color>"..Api.GameMechanicTags.TAG.armor.." reduce ".."<color=red>".."5</color>"..Api.GameMechanicTags.TAG.energy_regen.." and ".."<color=red>".."1</color>"..Api.GameMechanicTags.TAG.attack,
-    flavor_text = "\"My cousin can make big explosions\", George said while munching on a carrot".."\n".." {========="..TAG_perk_shengwu.."=========}",
+    tip = "Deal 30 damage. On hitting an enemy, gain ".."<color=#47b05d>".."1</color>"..Api.GameMechanicTags.TAG.armor..", reduce ".."<color=red>".."5</color>"..Api.GameMechanicTags.TAG.energy_regen.." and ".."<color=red>".."1</color>"..Api.GameMechanicTags.TAG.attack,
+    flavor_text = "\"My cousin can make big explosions,\" George said while chewing a carrot".."\n".." {========="..TAG_perk_shengwu.."=========}",
     icon = DCEI.Texture("Missile_HaiGui"),
     missile = DCEI.SimpleUnit("COMBAT Missile Hai_Gui"),
     sounds = {
@@ -2124,11 +2364,11 @@ Api:RegisterMissile("Missile_HaiGui", {
         end   
         end)
     end)
---Dolphin
+-- Dolphin
 Api:RegisterMissile("Missile_HaiTun", {
         id = "Missile_HaiTun",
         display_name = "Dolphin",
-        tip = "Deals 40 damage, on hit steals ".."<color=#47b05d>".."1%</color>"..Api.GameMechanicTags.TAG.luck.." from the enemy",
+        tip = "Deal 40 damage. On hitting an enemy, steal ".."<color=#47b05d>".."1%</color>"..Api.GameMechanicTags.TAG.luck.." from the enemy",
         flavor_text = "Lucky thief".."\n".." {========="..TAG_perk_shengwu.."=========}",
         icon = DCEI.Texture("Missile_HaiTun"),
         missile = DCEI.SimpleUnit("COMBAT Missile Hai_Tun"),
@@ -2148,12 +2388,12 @@ Api:RegisterMissile("Missile_HaiTun", {
                 end   
                 end)
             end)
---Wither Skeleton
+-- Wither Skeleton
 Api:RegisterMissile("Missile_DLKL", {
     id = "Missile_DLKL",
     display_name = "Wither Skeleton",
-    tip = "Deals 120 fixed damage",
-    flavor_text = "With enough brute force, even a brick can fly".."\n".." {========="..TAG_perk_shengwu.."=========}",
+    tip = "Deal 120 fixed damage",
+    flavor_text = "Brute force makes the brick fly".."\n".." {========="..TAG_perk_shengwu.."=========}",
     icon = DCEI.Texture("Missile_DLKL"),
     missile = DCEI.SimpleUnit("COMBAT Missile Diao_Ling"),
     sounds = {
@@ -2164,13 +2404,13 @@ Api:RegisterMissile("Missile_DLKL", {
     end  
     })
 
---AI Code Generation Test
---Bow
+-- Code Test
+-- Bow and Arrow
 Api:RegisterMissile("Missile_GongJian", {
     id = "Missile_GongJian",
-    display_name = "Bow",
-    tip = "Deals 20 damage, on hit fire an arrow",
-    flavor_text = "Pierce a willow at a hundred paces".."\n".." {========="..TAG_perk_gongju.."=========}",
+    display_name = "Bow and Arrow",
+    tip = "Deal 20 damage. On hit, fire one arrow",
+    flavor_text = "Piercing a willow leaf from a hundred paces".."\n".." {========="..TAG_perk_gongju.."=========}",
     icon = DCEI.Texture("Missile_GongJian"),
     missile = DCEI.SimpleUnit("COMBAT Missile Gong_Jian"),
     sounds = {
@@ -2190,12 +2430,12 @@ Api:RegisterMissile("Missile_GongJian", {
     end)
     end)
 
---Arrow
+-- Arrow
 Api:RegisterMissile("Missile_Jian", {
     id = "Missile_Jian",
     display_name = "Arrow",
-    tip = "Deals 5 damage",
-    flavor_text = "The arrow is on the string, it must be fired",
+    tip = "Deal 5 damage",
+    flavor_text = "The arrow is on the string and must be released",
     icon = DCEI.Texture("Missile_Jian"),
     missile = DCEI.SimpleUnit("COMBAT Missile Jian"),
     sounds = {
@@ -2210,8 +2450,8 @@ Api:RegisterMissile("Missile_Jian", {
 Api:RegisterMissile("Missile_Nu", {
     id = "Missile_Nu",
     display_name = "Crossbow",
-    tip = "Deals 40 damage, on hit fire 3 arrows",
-    flavor_text = "A ranged weapon more powerful than the bow, able to fire multiple arrows at once",
+    tip = "Deal 40 damage. On hit, fire 3 arrows",
+    flavor_text = "A ranged weapon more powerful than the bow, capable of firing multiple arrows at once",
     icon = DCEI.Texture("Missile_Nu"),
     missile = DCEI.SimpleUnit("COMBAT Missile Nu"),
     sounds = {
@@ -2230,6 +2470,59 @@ Api:RegisterMissile("Missile_Nu", {
         end
     end)
 end)
+-- Blaze Charge
+Api:RegisterMissile("Missile_lieyandan", {
+    id = "Missile_lieyandan",
+    display_name = "Blaze Charge",
+    tip = "Deal 30 damage. For every 100 points of energy regen, damage increases by 10",
+    flavor_text = "The more abundant the energy, the fiercer the strike",
+    icon = DCEI.Texture("Missile_lieyandan"), -- Please make sure there is a corresponding texture in the resource folder
+    missile = DCEI.SimpleUnit("COMBAT Missile lieyandan"), -- Please make sure there is a corresponding missile unit
+    sounds = {
+        DCEI.Sound("chidongxi") -- Reuse existing sound effect, can also be customized
+    },
+    damage = function(attack_data, caster)
+        -- Get current energy regen
+        local energy_regen = caster:GetBoundedAttribute("energy_per_second")
+        -- Calculate extra damage: every 100 points of energy regen adds 10 damage
+        local extra_damage = math.floor(energy_regen / 100) * 10
+        -- Base damage 30 + extra damage
+        return 30 + extra_damage
+    end
+})
+-- Grass Block
+Api:RegisterMissile("Missile_MaxHealthDmg", {
+    id = "Missile_MaxHealthDmg",
+    display_name = "Life Harvest",
+    tip = "Deal damage equal to 10% of the enemy's maximum health",
+    flavor_text = "No matter how tanky you are, you are vulnerable before an absolute percentage",
+    icon = DCEI.Texture("Missile_MaxHealthDmg"),
+    missile = DCEI.SimpleUnit("COMBAT Missile caofangkuai"),
+    sounds = {
+        DCEI.Sound("chidongxi")
+    },
+    damage = function(attack_data, caster)
+        -- Try to calculate 10% maximum health damage in the damage function
+        if target then
+            return 0.1 * target:GetBoundedAttribute("health_maximum")
+        end
+        return 0
+    end
+}, function(combat_unit)
+    local name = "Missile_MaxHealthDmg"
+    combat_unit.Attack:RegisterOnMissileImpactCallback(name, function(level, attack_data, caster, victim)
+        if attack_data.missile_id == "Missile_MaxHealthDmg" then
+            -- Ensure that on hit, deal damage equal to 10% of the target's maximum health
+            if victim then
+                local max_health = victim:GetBoundedAttribute("health_maximum")
+                local damage_amount = max_health * 0.1
+                victim:Damage(damage_amount, victim, {})
+            end
+        end
+    end)
+end)
+
+
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2250,28 +2543,28 @@ Api:RegisterBoss({
         ultimate_id = "BosUnlFu",
     },
     attributes = {
-        health_maximum = 3500,
+        health_maximum = 4500,
         attack = 35,
         energy_maximum = 2000,
         energy_per_second = 200,
     },
     perks = {
-        shinaozhe = 1,
         boss_furou = 2,
         boss_tudou = 2,
         boss_luobo = 2,
         boss_tieding = 2,
+        shinaozhe = 1,
     },
-lines = {
+    lines = {
         battle_start = {
             {
                 "Do you have a spare hat?",
-                "The sun is making my brain itch",
+                "The sun makes my head itch",
             }
         },
         on_start = {
             {
-                "Ooh wah ah~",
+                "Ooh ah~",
                 "Want some rotten flesh?",
             }
         },
@@ -2283,13 +2576,13 @@ lines = {
         },
         on_win = {
             {
-                "Not even iron armor",
-                "What are you going to beat me with?",
+                "You don't even have iron armor",
+                "How do you expect to beat me?",
             }
         },
         on_lose = {
             {
-                "I'm leaving, heading south",
+                "I'm leaving, going south",
                 "I'll find someone to deal with you later",
             }
         },
@@ -2306,16 +2599,16 @@ Api:RegisterBoss({
         ultimate_id = "BosUnlKu",
     },
     attributes = {
-        health_maximum = 4000,
-        attack = 24,
-        energy_maximum = 1400,
-        energy_per_second = 160,
+        health_maximum = 5200,
+        attack = 26,
+        energy_maximum = 1800,
+        energy_per_second = 120,
         ultimate_damage = 0.38,
     },
     perks = {
-        boss_changpian = 1,
+        boss_changpian = 2,
         huoyaohexin = 1,
-        Perk_Power_TNT = 6,
+        Perk_Power_TNT = 5,
         emergency_dodge = 5
     },
     lines = {
@@ -2326,25 +2619,25 @@ Api:RegisterBoss({
         },
         on_start = {
             {
-                "If I don't have a cat, do I even care about you",
-                "Come on, dare to fight me up close",
+                "Without a cat, I'll hang you",
+                "Come on, dare to fight me up close?",
             }
         },
         on_ultimate = {
             {
                 "Four aces, bomb",
-                "Family's from the Middle East, just kidding with you",
+                "From the Middle East, just kidding",
             }
         },
         on_win = {
             {
-                "A bit weak honestly",
-                "Not even worth one of Little White",
+                "A bit weak, to be honest",
+                "Not even as good as a skeleton",
             }
         },
         on_lose = {
             {
-                "Damn it, playing dirty with me huh",
+                "Damn it, playing dirty with me, huh",
                 TAG_geng_chuanshanjia,
             }
         },
@@ -2376,7 +2669,7 @@ Api:RegisterBoss({
     lines = {
         battle_start = {
             {
-                "Oink oink oink~",
+                "Oink oink~",
                 "Haha, 100% fake gold",
             }
         },
@@ -2387,20 +2680,20 @@ Api:RegisterBoss({
         },
         on_ultimate = {
             {
-                "What do you mean stealing my gold"..TAG_tieba_shengqi,
-                "Don't even think about sneaking off with the gold nuggets!",
+                "What do you mean steal my gold"..TAG_tieba_shengqi,
+                "Don't even think about swiping gold nuggets!",
             }
         },
         on_win = {
             {
                 "Gold, netherite, all mine",
-                "Hahahaha",
+                "Hahaha",
             }
         },
         on_lose = {
             {
-                "I surrender",
-                "Gold for you, can I keep the netherite or not"..TAG_tieba_zhencheng,
+                "Surrender and lose half",
+                "Gold for you, can you leave the netherite?"..TAG_tieba_zhencheng,
             }
         },
     }
@@ -2416,47 +2709,49 @@ Api:RegisterBoss({
         ultimate_id = "BosUnlLie",
     },
     attributes = {
-        health_maximum = 3500,
+        health_maximum = 20000,
         attack = 35,
         energy_maximum = 2000,
-        energy_per_second = 200,
+        energy_per_second = 180,
     },
     perks = {
-        boss_furou = 2,
-        shinaozhe = 1,
-        boss_tudou = 2,
-        boss_luobo = 2,
-        boss_tieding = 2,
+        yanxunhuoliao = 1,
+        Perk_Power_LieYanDan = 6,
+        boss_changpian = 2,
+        boss_tudou = 1,
+        boss_luobo = 1,
+
+
     },
     lines = {
         battle_start = {
             {
-                "Do you have a spare hat?",
-                "The sun is making my brain itch",
+                "Where are you looking? Hmm?",
+                "Just didn't find my original skin, make do with this",
             }
         },
         on_start = {
             {
-                "Ooh wah ah~",
-                "Want some rotten flesh?",
+                "Ooh ah~",
+                "Miscellaneous~ prepare to die",
             }
         },
         on_ultimate = {
             {
-                "Jump slash!",
-                "Take my hit!",
+                "Swallow it all for me",
+                "Hehehe",
             }
         },
         on_win = {
             {
-                "Not even iron armor",
-                "What are you going to beat me with?",
+                "Are you really a small fry?",
+                "I thought I could have more fun",
             }
         },
         on_lose = {
             {
-                "I'm leaving, heading south",
-                "I'll find someone to deal with you later",
+                "Eeeek~ mmm hmm~",
+                "No more, no more, if we continue then...",
             }
         },
     }
@@ -2472,47 +2767,47 @@ Api:RegisterBoss({
         ultimate_id = "BosUnlZhenZhu",
     },
     attributes = {
-        health_maximum = 3500,
+        health_maximum = 100000,
         attack = 35,
         energy_maximum = 2000,
         energy_per_second = 200,
+        attack_speed = 0.8,
     },
     perks = {
-        boss_furou = 2,
-        shinaozhe = 1,
-        boss_tudou = 2,
-        boss_luobo = 2,
-        boss_tieding = 2,
+        Perk_Power_YanJing = 6,
+        Perk_DodgeResetHeal = 1,
+        Perk_Power_ZSJ = 1,
+        Perk_Power_caofangkuai = 2,
     },
     lines = {
         battle_start = {
             {
-                "Do you have a spare hat?",
-                "The sun is making my brain itch",
+                "...",
+                "Die",
             }
         },
         on_start = {
             {
-                "Ooh wah ah~",
-                "Want some rotten flesh?",
+                "...",
+                "It begins",
             }
         },
         on_ultimate = {
             {
-                "Jump slash!",
-                "Take my hit!",
+                "...",
+                "Ultimate",
             }
         },
         on_win = {
             {
-                "Not even iron armor",
-                "What are you going to beat me with?",
+                "...",
+                "Trash",
             }
         },
         on_lose = {
             {
-                "I'm leaving, heading south",
-                "I'll find someone to deal with you later",
+                "...",
+                "Awesome",
             }
         },
     }
@@ -2528,47 +2823,50 @@ Api:RegisterBoss({
         ultimate_id = "BosUnlLongXi",
     },
     attributes = {
-        health_maximum = 300000,
-        attack = 35,
-        energy_maximum = 2000,
-        energy_per_second = 200,
+        health_maximum = 600000,
+        attack = 70,
+        health_per_second = 20,
+        attack_speed = 1.5,
+        energy_maximum = 1800,
+        energy_per_second = 400,
     },
     perks = {
-        boss_furou = 2,
-        shinaozhe = 1,
-        boss_tudou = 2,
-        boss_luobo = 2,
-        boss_tieding = 2,
+        Perk_Power_LongXi = 5,
+        attack_flex = 2,
+        Perk_Power_AllInOne = 1,
+        Perk_DodgeResetHeal = 4,
+        Perk_Power_YanJing = 4,
+        Perk_ImmortalBelow200k = 1,
     },
     lines = {
         battle_start = {
             {
-                "Do you have a spare hat?",
-                "The sun is making my brain itch",
+                "Ants and the like, not worth contending with.",
+                "Surrender, to avoid physical suffering.",
+                
             }
         },
         on_start = {
             {
-                "Ooh wah ah~",
-                "Want some rotten flesh?",
+                "You could actually reach this point? Truly beyond my expectations.",
+                "Very well, then I shall fight you, just for amusement.",
             }
         },
         on_ultimate = {
             {
-                "Jump slash!",
-                "Take my hit!",
+                "This strike, take it well!",
             }
         },
         on_win = {
             {
-                "Not even iron armor",
-                "What are you going to beat me with?",
+                "As expected",
+                "Little brat, want to slay a dragon?",
             }
         },
         on_lose = {
             {
-                "I'm leaving, heading south",
-                "I'll find someone to deal with you later",
+                "Damn! You didn't cheat, did you?",
+                "I'm not feeling it today, next time I'll beat the crap out of you",
             }
         },
     }
@@ -2587,11 +2885,11 @@ Api:RegisterBoss({
 Api:RegisterPerk("boss_luobo", {
     id = "boss_luobo",
     display_name = "Carrot",
-    description = "Gain "..TAG_missile_huluobo .. "\n" .. "Deals 1 damage, on hit gain ".."<color=#47b05d>".."5</color>"..Api.GameMechanicTags.TAG.energy_regen,
+    description = "Gain "..TAG_missile_huluobo .. "\n" .. "Deal 1 damage, on hit gain ".."<color=#47b05d>".."5</color>"..Api.GameMechanicTags.TAG.energy_regen,
     icon = DCEI.Texture("luobo"),
     perk_type = "perk",
     rarity = "common",
-    flavor_text = "The carrot zombie mom stuffed into the backpack before leaving".."\n".." {======"..TAG_perk_shiwu.."=====}", 
+    flavor_text = "The carrot Zombie Mom stuffed into your backpack when you left".."\n".." {======"..TAG_perk_shiwu.."=====}", 
     attacks = {
         luobo = 1,
         }, 
@@ -2619,7 +2917,7 @@ Api:RegisterPerk("boss_luobo", {
 Api:RegisterMissile("luobo", {
     id = "luobo",
     display_name = "Carrot",
-    tip = "Deals 1 damage, on hit gain ".."<color=#47b05d>".."5</color>"..Api.GameMechanicTags.TAG.energy_regen,
+    tip = "Deal 1 damage, on hit gain ".."<color=#47b05d>".."5</color>"..Api.GameMechanicTags.TAG.energy_regen,
     flavor_text = "Night Vision 3:00",
     icon = DCEI.Texture("luobo"),
     missile = DCEI.SimpleUnit("COMBAT Missile LuoBo"),
@@ -2637,15 +2935,15 @@ Api:RegisterMissile("luobo", {
         end
     end)
     end)
---Potato
+-- Potato
 Api:RegisterPerk("boss_tudou", {
     id = "boss_tudou",
     display_name = "Potato",
-    description = "Gain "..TAG_missile_tudou .. "\n" .. "Deals 1 damage, on hit gain ".."<color=#47b05d>".."5</color>"..Api.GameMechanicTags.TAG.energy_regen,
+    description = "Gain "..TAG_missile_tudou .. "\n" .. "Deal 1 damage, on hit gain ".."<color=#47b05d>".."5</color>"..Api.GameMechanicTags.TAG.energy_regen,
     icon = DCEI.Texture("tudou"),
     perk_type = "perk",
     rarity = "common",
-    flavor_text = "The potato zombie mom stuffed into the backpack before leaving".."\n".." {======"..TAG_perk_shiwu.."=====}", 
+    flavor_text = "The potato Zombie Mom stuffed into your backpack when you left".."\n".." {======"..TAG_perk_shiwu.."=====}", 
     attacks = {
         tudou = 1,
         }, 
@@ -2673,8 +2971,8 @@ Api:RegisterPerk("boss_tudou", {
 Api:RegisterMissile("tudou", {
     id = "tudou",
     display_name = "Potato",
-    tip = "Deals 1 damage, on hit gain ".."<color=#47b05d>".."5</color>"..Api.GameMechanicTags.TAG.energy_regen,
-    flavor_text = "What you are about to witness is: official partner of human civilization's food source, Siberia's only officially designated crop, record holder for most ways to eat, designated supplier for Ubisoft and EA servers",
+    tip = "Deal 1 damage, on hit gain ".."<color=#47b05d>".."5</color>"..Api.GameMechanicTags.TAG.energy_regen,
+    flavor_text = "What you are about to witness is: the official partner of human civilization's food source, the only officially designated crop of Siberia, the record holder for most ways to eat, the designated supplier for Ubisoft and EA servers",
     icon = DCEI.Texture("tudou"),
     missile = DCEI.SimpleUnit("COMBAT Missile TuDou"),
     sounds = {
@@ -2691,11 +2989,11 @@ Api:RegisterMissile("tudou", {
         end
     end)
     end)
---Rotten Flesh
+-- Rotten Flesh
 Api:RegisterPerk("boss_furou", {
     id = "boss_furou",
     display_name = "Rotten Flesh",
-    description = "Gain "..TAG_missile_furou .. "\n" .. "Deals 3%"..Api.GameMechanicTags.TAG.max_energy.." damage, and also reduce opponent's "..Api.GameMechanicTags.TAG.energy_regen.." by 5 for 5 seconds",
+    description = "Gain "..TAG_missile_furou .. "\n" .. "Deal 3%"..Api.GameMechanicTags.TAG.max_energy.." damage, and reduce opponent's 5"..Api.GameMechanicTags.TAG.energy_regen.." for 5 seconds",
     icon = DCEI.Texture("furou"),
     perk_type = "perk",
     rarity = "common",
@@ -2704,7 +3002,7 @@ Api:RegisterPerk("boss_furou", {
         furou = 1,
         }, 
     behavior = {
-    description = "Energy regen reduction",
+    description = "Energy Recovery Reduction",
     buff_bar_icon = DCEI.Texture("furou"),
     modify_attributes = {
         energy_per_second = -5,
@@ -2727,8 +3025,8 @@ Api:RegisterPerk("boss_furou", {
 Api:RegisterMissile("furou", {
     id = "furou",
     display_name = "Rotten Flesh",
-    tip = "Deals 3%"..Api.GameMechanicTags.TAG.max_energy.." damage, and also reduce opponent's "..Api.GameMechanicTags.TAG.energy_regen.." by 5 for 5 seconds",
-    flavor_text = "Want some spicy strips",
+    tip = "Deal 3%"..Api.GameMechanicTags.TAG.max_energy.." damage, and reduce opponent's 5"..Api.GameMechanicTags.TAG.energy_regen.." for 5 seconds",
+    flavor_text = "Want some spicy strips?",
     icon = DCEI.Texture("furou"),
     missile = DCEI.SimpleUnit("COMBAT Missile FuRou"),
     sounds = {
@@ -2745,20 +3043,20 @@ Api:RegisterMissile("furou", {
         end
     end)
     end)
---Iron Ingot
+-- Iron Ingot
 Api:RegisterPerk("boss_tieding", {
     id = "boss_tieding",
     display_name = "Iron Ingot",
-    description = "Gain "..TAG_missile_tieding .. "\n".."Deals double damage equal to "..Api.GameMechanicTags.TAG.armor.." gain 1 "..Api.GameMechanicTags.TAG.armor.." every 10 hits",
+    description = "Gain "..TAG_missile_tieding .. "\n".."Deal double damage equal to "..Api.GameMechanicTags.TAG.armor.." damage".." every 10 hits gain 1 "..Api.GameMechanicTags.TAG.armor,
     icon = DCEI.Texture("tieding"),
     perk_type = "perk",
     rarity = "rare",
-    flavor_text = "The zombie was carrying it before he died, no idea what he used to do".."\n".." {======"..TAG_relic_zuanshi.."=====}", 
+    flavor_text = "The zombie carried it on him while alive, don't know what he used to do".."\n".." {======"..TAG_relic_zuanshi.."=====}", 
     attacks = {
         tieding = 1,
         }, 
     behavior = {
-    description = "Stacking Armor",
+    description = "Armor Stacking",
     buff_bar_icon = DCEI.Texture("tieding"),
     modify_attributes = {
         health_per_second = 0,
@@ -2780,8 +3078,8 @@ Api:RegisterPerk("boss_tieding", {
 Api:RegisterMissile("tieding", {
     id = "tieding",
     display_name = "Iron Ingot",
-    tip = "Deals double damage equal to "..Api.GameMechanicTags.TAG.armor.." gain 1 "..Api.GameMechanicTags.TAG.armor.." every 10 hits",
-    flavor_text = "An iron ingot picked up from who knows where, seems to have been stored on the zombie for a long time",
+    tip = "Deal double damage equal to "..Api.GameMechanicTags.TAG.armor.." damage".." every 10 hits gain 1 "..Api.GameMechanicTags.TAG.armor,
+    flavor_text = "An iron ingot picked up from who knows where, seems to have been kept on the zombie for a long time",
     icon = DCEI.Texture("tieding"),
     missile = DCEI.SimpleUnit("COMBAT Missile TieDing"),
     sounds = {
@@ -2805,15 +3103,15 @@ Api:RegisterMissile("tieding", {
         end
     end)
     end)
---Music Disc
+-- Music Disc
 Api:RegisterPerk("boss_changpian", {
     id = "boss_changpian",
     display_name = "Music Disc",
-    description = "Gain "..TAG_missile_changpian,
+    description = "Gain "..TAG_missile_changpian.."\nDeal 30% of "..Api.GameMechanicTags.TAG.energy_regen.." damage, on hit fire two music notes",
     icon = DCEI.Texture("changpian"),
     perk_type = "perk",
     rarity = "epic",
-    flavor_text = "A rare music disc, more likely to drop when skeletons and creepers infight".."\n".." {========="..TAG_relic_zuanshi.."=========}", 
+    flavor_text = "A rare music disc, more likely to drop when skeletons and creepers infight".."\n".." {====="..TAG_relic_zuanshi.."=====}", 
     attacks = {
         changpian = 1,
         }, 
@@ -2821,16 +3119,16 @@ Api:RegisterPerk("boss_changpian", {
 ----------------------------------------------------
 Api:RegisterMissile("changpian", {
     id = "changpian",
-    display_name = "Iron Ingot",
-    tip = "Deals 50% "..Api.GameMechanicTags.TAG.energy_regen.." on hit fire two music notes",
-    flavor_text = "The power of music, kid",
+    display_name = "Music Disc",
+    tip = "Deal 30% of "..Api.GameMechanicTags.TAG.energy_regen.." damage, on hit fire two music notes",
+    flavor_text = "The power of music, kid".." {========="..TAG_relic_zuanshi.."=========}",
     icon = DCEI.Texture("changpian"),
     missile = DCEI.SimpleUnit("COMBAT Missile ChangPian"),
     sounds = {
         DCEI.Sound("chidongxi")
     },
     damage = function(attack_data, caster)
-        return 0.5*caster:GetBoundedAttribute("energy_per_second")
+        return 0.3*caster:GetBoundedAttribute("energy_per_second")
     end
     },function (combat_unit)
     local name = "changpian"
@@ -2843,11 +3141,11 @@ Api:RegisterMissile("changpian", {
             end
     end)
     end)
---Sand
+-- Sand
 Api:RegisterPerk("boss_shazi", {
     id = "boss_shazi",
     display_name = "Sand",
-    description = "Gain "..TAG_missile_shazi.."\nOn hit randomly deal ".."<color=#47b05d>".."10~20</color>".." damage",
+    description = "Gain "..TAG_missile_shazi.."\nOn hit, randomly deal ".."<color=#47b05d>".."10~20</color>".." damage",
     icon = DCEI.Texture("shazi"),
     perk_type = "perk",
     rarity = "epic",
@@ -2860,7 +3158,7 @@ Api:RegisterPerk("boss_shazi", {
 Api:RegisterMissile("shazi", {
     id = "shazi",
     display_name = "Sand",
-    tip = "Deals ".."<color=#47b05d>".."10~20</color>".." damage",
+    tip = "Deal ".."<color=#47b05d>".."10~20</color>".." damage",
     flavor_text = "",
     icon = DCEI.Texture("shazi"),
     missile = DCEI.SimpleUnit("COMBAT Missile ShaZi"),
@@ -2872,11 +3170,11 @@ Api:RegisterMissile("shazi", {
         return randoms
     end
     })
---可疑的沙子
+-- Suspicious Sand
 Api:RegisterPerk("boss_keyishazi", {
     id = "boss_keyishazi",
     display_name = "Suspicious Sand",
-    description = "Deals 30 damage",
+    description = "Deal 30 damage",
     icon = DCEI.Texture("shazi"),
     perk_type = "perk",
     rarity = "rare",
@@ -2888,7 +3186,7 @@ Api:RegisterPerk("boss_keyishazi", {
 Api:RegisterMissile("keyi_shazi", {
     id = "keyi_shazi",
     display_name = "Suspicious Sand",
-    tip = "Deals 30 damage",
+    tip = "Deal 30 damage",
     flavor_text = "Seems a bit redder than normal sand?",
     icon = DCEI.Texture("ky_shazi"),
     missile = DCEI.SimpleUnit("COMBAT Missile KY_ShaZi"),
@@ -2899,15 +3197,15 @@ Api:RegisterMissile("keyi_shazi", {
         return 30
     end
     })
---Gold Nugget
+-- Gold Nugget
 Api:RegisterPerk("boss_jinding", {
     id = "boss_jinding",
     display_name = "Gold Nugget",
-    description = "Gain "..TAG_missile_jinli.."\nDeals 100 damage, on hit reduce enemy's "..Api.GameMechanicTags.TAG.income.." by 1",
+    description = "Gain "..TAG_missile_jinli.."\nDeal 100 damage. On hit, reduce enemy's 1 "..Api.GameMechanicTags.TAG.income,
     icon = DCEI.Texture("missile_jinding"),
     perk_type = "perk",
     rarity = "epic",
-    flavor_text = "\"Small amounts add up, gold nuggets are worth quite a bit too, oink oink\"".."\n".." {========="..TAG_relic_zuanshi.."=========}", 
+    flavor_text = "\"Many a little makes a mickle, gold nuggets are worth a lot too, oink oink\"".."\n".." {========="..TAG_relic_zuanshi.."=========}", 
     attacks = {
         missile_jinding = 1,
         }, 
@@ -2916,8 +3214,8 @@ Api:RegisterPerk("boss_jinding", {
 Api:RegisterMissile("missile_jinding", {
     id = "missile_jinding",
     display_name = "Gold Nugget",
-    tip = "Deals 100 damage, on hit reduce enemy's "..Api.GameMechanicTags.TAG.income.." by 1",
-    flavor_text = "Even a mosquito is meat no matter how small, gold nuggets are still gold",
+    tip = "Deal 100 damage. On hit, reduce enemy's 1 "..Api.GameMechanicTags.TAG.income,
+    flavor_text = "Even a mosquito is meat, gold nuggets are still gold",
     icon = DCEI.Texture("missile_jinding"),
     missile = DCEI.SimpleUnit("COMBAT Missile Missile_jinding"),
     sounds = {
@@ -2941,18 +3239,18 @@ Api:RegisterMissile("missile_jinding", {
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---boss能力
---食脑者
+-- Boss Abilities
+-- Brain Eater
 Api:RegisterPerk("shinaozhe", {
     id = "shinaozhe",
     display_name = "Brain Eater",
     description = "When hit by a brain, reduce ".."<color=#47b05d>".."50</color>"..Api.GameMechanicTags.TAG.max_energy, 
-    flavor_text = "A talent from a colleague in another game, borrowing it for now",
+    flavor_text = "A talent from peers in other games, just borrowing it",
     icon = DCEI.Texture("shinaozhe"),
     perk_type = "perk",
     rarity = "legendary",
     behavior = {
-        description = "Brain, delicious (max energy reduction)",
+        description = "Brain, tasty (max energy reduced)",
         buff_bar_icon = DCEI.Texture("shinaozhe"),
         modify_attributes = {
             energy_maximum = -50,
@@ -2969,11 +3267,11 @@ Api:RegisterPerk("shinaozhe", {
             end
         end)
     end)
---Gunpowder Core
+-- Gunpowder Core
 Api:RegisterPerk("huoyaohexin", {
     id = "huoyaohexin",
     display_name = "Gunpowder Core",
-    description = "When health is below ".."<color=red>".."800</color>"..", self-destruct mode activates!", 
+    description = "When health is below ".."<color=red>".."800</color>"..", activate self-destruct mode!",
     flavor_text = "Give everything",
     icon = DCEI.Texture("huoyaohexin"),
     perk_type = "perk",
@@ -2989,11 +3287,11 @@ Api:RegisterPerk("huoyaohexin", {
 		        end
         end) 
     end)
---淘金者
+-- Gold Digger
 Api:RegisterPerk("taojin", {
     id = "taojin",
     display_name = "Gold Digger",
-    description = "When sand hits an enemy, ".."<color=#47b05d>".."15%</color>".." chance to fire an extra gold nugget", 
+    description = "When sand hits an enemy, there is a ".."<color=#47b05d>".."15%</color>".." chance to fire an extra gold nugget",
     flavor_text = "No one can take a single grain of gold from me",  --temp
     icon = DCEI.Texture("taojin"),
     perk_type = "perk",
@@ -3011,6 +3309,68 @@ Api:RegisterPerk("taojin", {
 		        end
         end) 
     end)
+-- Smoke and Fire
+Api:RegisterPerk("yanxunhuoliao", {
+    id = "yanxunhuoliao", 
+    display_name = "Smoke and Fire",
+    description = "Gain ".."<color=#47b05d>".."1%</color>"..Api.GameMechanicTags.TAG.energy_regen.." as "..Api.GameMechanicTags.TAG.health_regen..". When a Blaze Charge hits, gain ".."<color=#47b05d>".."1</color>".." point of "..Api.GameMechanicTags.TAG.energy_regen, 
+    flavor_text = "Smoke and Fire!",  --temp
+    icon = DCEI.Texture("yanxunhuoliao"),
+    perk_type = "perk",
+    rarity = "legendary",
+},function (combat_unit)
+    local name = "yanxunhuoliao"
+
+
+    combat_unit.Attack:RegisterOnMissileImpactCallback(name, function(level, attack_data, caster, target)
+        -- Get current energy regen and health regen in real time
+        local current_energy_regen = combat_unit:GetBoundedAttribute("energy_per_second")
+        local current_health_regen = combat_unit:GetBoundedAttribute("health_per_second")
+        
+        -- Calculate the difference between target health regen (1% of energy regen) and current health regen
+        local target_health_regen = current_energy_regen * 0.01
+        local health_diff = target_health_regen - current_health_regen
+        
+        -- Fill the difference to ensure health regen is always exactly equal to 1% of energy regen
+        combat_unit:ModifyAttribute("health_per_second", health_diff, false)
+        
+        -- Original logic when Blaze Charge hits
+        if attack_data.missile_id == "lie_yan_dan" then
+            target.run_instance:ModifySavedPerkDataAttributes("energy_regen", 1)
+        end
+
+        -- New logic: gain 1 point of energy regen when Spider Eye hits
+        if attack_data.missile_id == "Missile_lieyandan" then
+            combat_unit:ModifyAttribute("energy_per_second", 1, false)
+        end
+    end)
+end)
+-- Void Healing
+Api:RegisterPerk("Perk_DodgeResetHeal", {
+    id = "Perk_DodgeResetHeal",
+    display_name = "Void Healing",
+    description = "Whenever your dodge reaches ".."<color=#47b05d>".."90%</color>".." or more, reset dodge to zero and gain ".."<color=#47b05d>".."5000</color>".." maximum health",
+    flavor_text = "Extreme dodge is just another form of tanking",
+    icon = DCEI.Texture("Perk_DodgeResetHeal"),
+    perk_type = "perk",
+    rarity = "legendary",
+}, function(combat_unit)
+    local name = "Perk_DodgeResetHeal"
+    combat_unit.Attack:RegisterOnMissileImpactCallback(name, function(level, attack_data, criminal, victim)
+        -- Get current dodge chance
+        local current_dodge = criminal:GetBoundedAttribute("dodge_chance")
+        -- Check if dodge is greater than or equal to 0.9 (i.e., 90%)
+        if current_dodge >= 0.9 then
+            for i = 1, level do
+                -- Reset dodge to zero (subtract the current real-time dodge value)
+                combat_unit:ModifyAttribute("dodge_chance", -0.9, false)
+                combat_unit:ModifyAttribute("health_maximum", 5000, false)
+            end
+        end
+    end)
+end)
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -3020,7 +3380,7 @@ Api:RegisterPerk("taojin", {
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---大招
+-- Ultimate
 Api:RegisterUltimate("lie_yan_dan", {
         id = "lie_yan_dan",
         icon = DCEI.Texture("lie_yan_dan"),
@@ -3030,7 +3390,7 @@ Api:RegisterUltimate("lie_yan_dan", {
         flight_time = 1,
         })
 --------------------------------------------------------
---僵尸大招
+-- Zombie Ultimate
 Api:RegisterUltimate("BosUnlFu", {
     id = "BosUnlFu",
     icon = DCEI.Texture("BosUnlFu"),
@@ -3040,7 +3400,7 @@ Api:RegisterUltimate("BosUnlFu", {
     flight_time = 1,
     })
 --------------------------------------------------------
---苦力怕大招
+-- Creeper Ultimate
 Api:RegisterUltimate("BosUnlKu", {
     id = "BosUnlKu",
     icon = DCEI.Texture("BosUnlKu"),
@@ -3050,7 +3410,7 @@ Api:RegisterUltimate("BosUnlKu", {
     flight_time = 1,
     })
 --------------------------------------------------------
---猪灵大招
+-- Piglin Ultimate
 Api:RegisterUltimate("BosUnlJin", {
     id = "BosUnlJin",
     icon = DCEI.Texture("BosUnlJin"),
@@ -3060,7 +3420,7 @@ Api:RegisterUltimate("BosUnlJin", {
     flight_time = 1,
     })
 --------------------------------------------------------
---烈焰人大招
+-- Blaze Ultimate
 Api:RegisterUltimate("BosUnlLie", {
     id = "BosUnlLie",
     icon = DCEI.Texture("BosUnlLie"),
@@ -3070,7 +3430,7 @@ Api:RegisterUltimate("BosUnlLie", {
     flight_time = 1,
     })
 --------------------------------------------------------
---末影人大招
+-- Enderman Ultimate
 Api:RegisterUltimate("BosUnlZhenZhu", {
     id = "BosUnlZhenZhu",
     icon = DCEI.Texture("BosUnlZhenZhu"),
@@ -3080,7 +3440,7 @@ Api:RegisterUltimate("BosUnlZhenZhu", {
     flight_time = 1,
     })
 --------------------------------------------------------
---末影龙大招
+-- Ender Dragon Ultimate
 Api:RegisterUltimate("BosUnlLongXi", {
     id = "BosUnlLongXi",
     icon = DCEI.Texture("BosUnlLongXi"),
@@ -3096,46 +3456,47 @@ Api:RegisterUltimate("BosUnlLongXi", {
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
---角色
+-- Character
 Api:CopyCharacter("naysayer", {
         id = "Steve",
         display_name = "Steve",
-        short_description = "With water, everything is fine",
+        short_description = "As long as there's water, it's fine",
         icon = DCEI.Texture("steve_small"),
         icon_low_resolution = DCEI.Texture("steve_small"),
         icon_high_resolution = DCEI.Texture("steve_large"),
         unit = DCEI.Unit("COMBAT Unit Steve Character"),
         attributes = {
-        health_maximum = 2200,          --hp
-        energy_maximum = 2000,          --最大能量
-        energy_per_second = 120,         --能量恢复
+        health_maximum = 2100,          --hp
+        energy_maximum = 2100,          --max energy
+        energy_per_second = 120,         --energy regen
         attack = 20,
-        attack_speed = 1.0,                    --力量
-        --专门来测试属性的
+        attack_speed = 1.0,                    --strength
+        dodge_chance = 0.0,
+        --Specifically for testing attributes
         -- health_maximum = 80000,          --hp
-        -- dodge_chance = 0.9,          --闪避
-        -- attack_speed = 1.5,             --攻速
-        -- luck = 1,                    --幸运
-        -- income = 30,                    --收入    
-        -- energy_per_second = 600,        --能量恢复
-        -- energy_maximum = 1600000,          --最大能量
-        -- health_per_second = 200,     --hp恢复
+        -- dodge_chance = 0.9,          --dodge
+        -- attack_speed = 1.5,             --attack speed
+        -- luck = 1,                    --luck
+        -- income = 30,                    --income    
+        -- energy_per_second = 600,        --energy regen
+        -- energy_maximum = 1600000,          --max energy
+        -- health_per_second = 200,     --hp regen
         -- block = 70
-        -- attack = 0,                    --力量
+        -- attack = 0,                    --strength
                      },
        cosmetic_data = 
-        --大招
+        --Ultimate
          {
             ultimate_id = "lie_yan_dan",
          },
 
-        --遗物
+        --Relics
          relics = 
          {
             "Relic_BuSiTuTeng",
             "Relic_RenWu",
             "Relic_MuGun",
-            --测试遗物
+            --Test relics
             --"Relic_CombatPrep", 
             --"Relic_CustomSummon", 
             --"Relic_YanJing",
@@ -3147,14 +3508,16 @@ Api:CopyCharacter("naysayer", {
             --"Relic_LongDan",
          },
 
-        --弹匣
+        --Magazine
          attack_ids = 
          {
          "Missile_ZhuYan",
          "Missile_TNT",
          "Missile_MianBao",
          "Missile_GongJian",
-         --测试弹匣
+         "changpian",
+         --"Missile_MaxHealthDmg",
+         --Test magazine
          --"Missile_Nu", 
          --"Missile_GongJian",
          --"Missile_DLKL"
@@ -3168,17 +3531,17 @@ Api:CopyCharacter("naysayer", {
          --"Missile_JSZR",
          },
 
-        --能力池
+        --Perk pool
          perk_chains = 
             {
-            -----------------------------新建能力组
+            -----------------------------New perk group
                 {
-                    --蜘蛛眼
+                    --Spider Eye
                    "Perk_MuTi",
                    "Perk_ZhuLuan",
                    "Perk_FaJiao",
                    "Perk_NuWu",
-                   --急迫
+                   --Haste
                    "Perk_JiPo1",
                    "Perk_JiPo2",
                    "Perk_JiPo3",
@@ -3202,56 +3565,59 @@ Api:CopyCharacter("naysayer", {
                    --
                    "Perk_HongShi", 
                    --TNT
-                   "Perk_TNT_Power", 
+                   "Perk_TNT_Attack", 
                    "Perk_ErTiJiao",
                    --
                    "Relic_CustomSummon", 
                    "Perk_FoodBioHit", 
                    "Perk_EnergyOverload", 
+                   --
+                   "Perk_Power_LieYanDan",
+                   "Perk_Zuanshigao",
                 },
-            ------------------------------原能力组
+            ------------------------------Original perk group
                 {
-                --力量相关
-                 --"gain_attack",--攻击提升
-                 --"attack_quest",--加油
-                 --"flex_on_flex",--再来一组
-                 "attack_flex",--肌肉
-                 --"flex_quest",--努力锻炼
-                 --"super_flex",--野兽心态
-                --脑子相关
-                "attack_brain",--获得一个脑子
-                --"bonus_brain",--学习
-                --"super_brain",--头脑风暴
-                 --最大生命值相关
-                --"attack_lifesteal",--获得一个吸血鬼
-                --"brain_on_lifesteal",--思考
-                --"bonus_lifesteal",--吸血蝙蝠
-                --能量恢复相关
-                --"energy_regen",--能量恢复
-                --"attack_music_note",--音符
-                --"recruit_band_quest",--组建乐队
-                --"bonus_music_note",--升调
-                --闪避相关
-                "dodge",--闪避
-                "energy_on_dodge",--虫舞
-                --"dodge_on_crit_quest",--阴阳调和
-                "brain_on_dodge",--明镜止水
-                --暴击提升
-                --"crit",--暴击几率
-                "crit_chance_quest",--怒气积攒
-                --幸运
-                "gain_luck",--获得20%幸运
-                --鲨鱼
-               --"shark_quest",--鲨群考验
-                --"thorn_shark",--荆棘鲨
-                --"vulnerable_on_damage",--撕裂伤口
-                --"shark_on_damage",--寻血鲨鱼
-                --"heal_on_damage_legendary",--盛宴
-                --回血
-                --"health_regen",--获得25回血
-                --"health_regen_percentage",--硬汉
+                --Strength related
+                 --"gain_attack",--Attack boost
+                 --"attack_quest",--Come on
+                 --"flex_on_flex",--Another set
+                 "attack_flex",--Muscle
+                 --"flex_quest",--Work hard
+                 --"super_flex",--Beast mindset
+                --Brain related
+                "attack_brain",--Gain a brain
+                --"bonus_brain",--Study
+                --"super_brain",--Brainstorm
+                 --Max health related
+                --"attack_lifesteal",--Gain a vampire
+                --"brain_on_lifesteal",--Think
+                --"bonus_lifesteal",--Vampire bat
+                --Energy regen related
+                --"energy_regen",--Energy regen
+                --"attack_music_note",--Music note
+                --"recruit_band_quest",--Form a band
+                --"bonus_music_note",--Up tone
+                --Dodge related
+                --"dodge",--Dodge
+                "energy_on_dodge",--Insect dance
+                --"dodge_on_crit_quest",--Yin-yang harmony
+                "brain_on_dodge",--Clear mirror, still water
+                --Crit boost
+                --"crit",--Crit chance
+                "crit_chance_quest",--Accumulate anger
+                --Luck
+                "gain_luck",--Gain 20% luck
+                --Shark
+               --"shark_quest",--Shark group trial
+                --"thorn_shark",--Thorn shark
+                --"vulnerable_on_damage",--Tear wound
+                --"shark_on_damage",--Blood-seeking shark
+                --"heal_on_damage_legendary",--Feast
+                --Health regen
+                --"health_regen",--Gain 25 health regen
+                --"health_regen_percentage",--Tough guy
                 },
-            -----------------------------子弹组
+            -----------------------------Bullet group
             {
                 "Perk_Power_ZhuYan", 
                 "Perk_Power_MianBao",
@@ -3259,13 +3625,13 @@ Api:CopyCharacter("naysayer", {
                 "Perk_Power_LongXi",
                 "Perk_Power_Ji",
                 "Perk_Power_Zhu",
-                "Perk_RandomHidden", --随机隐藏
+                "Perk_RandomHidden", --Random hidden
             },    
     
             },
                 })
---Boss池
-Api:SetCampaignBossPool("Steve", {
+--Boss pool
+Api:SetCampaignBossPool("Steve", {  
         "my_boss_zombie",
         "my_boss_kulipa",
         "my_boss_zhuling",
@@ -3273,9 +3639,9 @@ Api:SetCampaignBossPool("Steve", {
         "my_boss_moyingren",
         "my_boss_moyinglong",
     })
---神器合成
+--Relic combos
 Api:RegisterRelicCombos("Steve", {
-        --下界传送门
+        --Nether Portal
         Relic_CSM = {
             priority = 1,
             formula = {
@@ -3283,7 +3649,7 @@ Api:RegisterRelicCombos("Steve", {
                 Relic_DaHuoShi = 1,
             }
         },
-        --下界合金锭
+        --Netherite Ingot
         Relic_XJHJ_Ding = {
             priority = 1,
             formula = {
@@ -3291,7 +3657,7 @@ Api:RegisterRelicCombos("Steve", {
                 Relic_JinDing = 1,
             },
         },
-        --钻石剑
+        --Diamond Sword
         Relic_ZuanShiJian= {
             priority = 1,
             formula = {
@@ -3299,7 +3665,7 @@ Api:RegisterRelicCombos("Steve", {
                 Relic_MuGun = 1,
             },
         },
-        --末影之眼
+        --Eye of Ender
         Relic_YanJing = {
             priority = 1,
             formula = {
@@ -3311,4 +3677,4 @@ Api:RegisterRelicCombos("Steve", {
 
     })
 ---------------------------------   
-end)     
+end)
