@@ -22,6 +22,11 @@
            "baseUnit": "_COMBAT Missile"
        },
 
+        "COMBAT Missile Tnts1":
+       {
+           "baseUnit": "_COMBAT Missile"
+       },
+
        "COMBAT Missile Long Xi":
        {
            "baseUnit": "_COMBAT Missile"
@@ -143,6 +148,16 @@
        },
 
        "COMBAT Missile Nu": 
+       {
+           "baseUnit": "_COMBAT Missile"
+       },
+
+       "COMBAT Missile lieyandan": 
+       {
+           "baseUnit": "_COMBAT Missile"
+       },
+
+        "COMBAT Missile caofangkuai": 
        {
            "baseUnit": "_COMBAT Missile"
        },

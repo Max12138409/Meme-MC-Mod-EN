@@ -142,6 +142,16 @@
            }
        },
 
+        "COMBAT Missile Tnts1": {
+           "parent": "_COMBAT Missile Simple",
+           "unitActor": {
+               "resource": {
+                   "name": "Missile_TNT1"
+               },
+               "modelScale": 1
+           }
+       },
+
         "COMBAT Missile Zhi_Zhu": {
            "parent": "_COMBAT Missile Simple",
            "unitActor": {
@@ -377,6 +387,26 @@
         "unitActor": {
             "resource": {
                 "name": "Missile_Nu"
+            },
+            "modelScale": 1
+        }
+    },
+
+    "COMBAT Missile lieyandan": {
+        "parent": "_COMBAT Missile Simple",
+        "unitActor": {
+            "resource": {
+                "name": "Missile_lieyandan"
+            },
+            "modelScale": 0.5
+        }
+    },
+
+        "COMBAT Missile caofangkuai": {
+        "parent": "_COMBAT Missile Simple",
+        "unitActor": {
+            "resource": {
+                "name": "Missile_MaxHealthDmg"
             },
             "modelScale": 1
         }
